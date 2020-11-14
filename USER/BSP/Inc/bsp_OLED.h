@@ -35,14 +35,14 @@ void bsp_OLED_ShowChar(u8 x,u8 y,u8 chr,u8 Char_Size);
 u32  bsp_OLED_pow(u8 m,u8 n);
 void bsp_OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 size2);//size2(16|12)
 
-static void WriteCmd(unsigned char I2C_Command);//写命令
-static void WriteDat(unsigned char I2C_Data);//写数据
+void WriteCmd(unsigned char I2C_Command);//写命令
+void WriteDat(unsigned char I2C_Data);//写数据
 
 
 /**
  * @brief 使用案例
- * /
- /*****************
+ 
+
 	OLED_ShowStr(0, 0, "hello world", 2);//显示字符串
     OLED_ShowStr(0, 2, "hello world", 1);//显示字符串
 	OLED_ShowCN_STR(0, 4 , 0 , 8);

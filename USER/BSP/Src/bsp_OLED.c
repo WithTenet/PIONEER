@@ -12,8 +12,7 @@ extern I2C_HandleTypeDef hi2c2;
  * 如果需要重新定向到另外的I2C，更改两个函数的内容 hi2c2
  */
 
-static void WriteCmd(unsigned char I2C_Command);//写命令
-static void WriteDat(unsigned char I2C_Data);//写数据
+
 
 /**
  * @brief OLED 屏幕初始化
@@ -326,7 +325,7 @@ void bsp_OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 size2)
  * 
  * @param I2C_Command 
  */
-static void WriteCmd(unsigned char I2C_Command)
+void WriteCmd(unsigned char I2C_Command)
 {
 	HAL_I2C_Mem_Write(&hi2c2,OLED0561_ADD,COM,I2C_MEMADD_SIZE_8BIT,&I2C_Command,1,100);
 }
@@ -336,7 +335,7 @@ static void WriteCmd(unsigned char I2C_Command)
  * 
  * @param I2C_Data 
  */
-static void WriteDat(unsigned char I2C_Data)
+void WriteDat(unsigned char I2C_Data)
 {
 	HAL_I2C_Mem_Write(&hi2c2,OLED0561_ADD,DAT,I2C_MEMADD_SIZE_8BIT,&I2C_Data,1,100);
 }
