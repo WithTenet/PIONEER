@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "bsp_OLED.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,7 +117,12 @@ int main(void)
   bsp_OLED_Init();
   bsp_OLED_ON();
   bsp_OLED_CLR();
-  int i=3000;
+  HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获
+  HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);
+  HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);
+   
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -127,20 +132,25 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    bsp_TIMIN_C();
-    printf("ch1 :%d",high_time[0]);
-    HAL_Delay(100);
-    sprintf(buf[0],"ch1 high time:%5d",high_time[0]);
-	  bsp_OLED_ShowStr(0, 0,buf[0], 1);//显示字符串
-    sprintf(buf[1],"ch1 high time:%5d",i++);
-    bsp_OLED_ShowStr(0, 2,buf[1], 1);//显示字符串
-   /* sprintf(buf[1],"ch2 high time:%d",high_time[1]);
-	  bsp_OLED_ShowStr(0, 2,buf[1], 1);//显示字符串
-    sprintf(buf[2],"ch3 high time:%d",high_time[2]);
-	  bsp_OLED_ShowStr(0, 4,buf[2], 1);//显示字符串
-    sprintf(buf[3],"ch4 high time:%d",high_time[3]);
-	  bsp_OLED_ShowStr(0, 6,buf[3], 1);//显示字符串
-    */
+    //bsp_TIMIN_C();
+  //  bsp_OLED_CLR();
+    //HAL_Delay(100);
+    //sprintf(buf[0],"ch1 high time:%4d",high_time[0]);
+	  //bsp_OLED_ShowStr(0, 0,buf[0], 1);//显示字符串
+
+    bsp_OLED_ShowNum(0,0,high_time[0],4,12);
+   // bsp_OLED_ShowNum(0,2,high_time[1],4,12);
+    //bsp_OLED_ShowNum(0,4,high_time[2],4,12);
+    bsp_OLED_ShowNum(0,6,high_time[3],4,12);
+
+
+    // sprintf(buf[1],"ch2 high time:%d",high_time[1]);
+	  // bsp_OLED_ShowStr(0, 2,buf[1], 1);//显示字符串
+    // sprintf(buf[2],"ch3 high time:%d",high_time[2]);
+	  // bsp_OLED_ShowStr(0, 4,buf[2], 1);//显示字符串
+    // sprintf(buf[3],"ch4 high time:%d",high_time[3]);
+	  // bsp_OLED_ShowStr(0, 6,buf[3], 1);//显示字符串
+    
   }
   /* USER CODE END 3 */
 }
@@ -275,9 +285,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 1639;
+  htim1.Init.Prescaler = 83;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 64000;
+  htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
