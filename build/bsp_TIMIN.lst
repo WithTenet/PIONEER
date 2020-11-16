@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 1
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,17 +58,17 @@ ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 1
   37              		.cfi_offset 14, -4
   20:USER/BSP/Src/bsp_TIMIN.c ****     // Channel 1
   21:USER/BSP/Src/bsp_TIMIN.c ****     switch (capture_Cnt[0])
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 2
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 2
 
 
   38              		.loc 1 21 5 view .LVU1
   39              		.loc 1 21 24 is_stmt 0 view .LVU2
-  40 0002 3D4B     		ldr	r3, .L15
+  40 0002 4A4B     		ldr	r3, .L20
   41 0004 1B68     		ldr	r3, [r3]
   42              		.loc 1 21 5 view .LVU3
-  43 0006 9BB1     		cbz	r3, .L2
+  43 0006 A3B1     		cbz	r3, .L2
   44 0008 032B     		cmp	r3, #3
-  45 000a 20D0     		beq	.L3
+  45 000a 21D0     		beq	.L3
   46              	.L4:
   22:USER/BSP/Src/bsp_TIMIN.c ****     {
   23:USER/BSP/Src/bsp_TIMIN.c **** 	    case 0:
@@ -77,873 +77,965 @@ ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 1
   26:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
   27:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
   28:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
-  29:USER/BSP/Src/bsp_TIMIN.c **** 		    high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
-  30:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
-  31:USER/BSP/Src/bsp_TIMIN.c **** 			break;
-  32:USER/BSP/Src/bsp_TIMIN.c ****     }
-  33:USER/BSP/Src/bsp_TIMIN.c **** 
-  34:USER/BSP/Src/bsp_TIMIN.c ****     // Channel 2
-  35:USER/BSP/Src/bsp_TIMIN.c ****     switch (capture_Cnt[1])
-  47              		.loc 1 35 5 is_stmt 1 view .LVU4
-  48              		.loc 1 35 24 is_stmt 0 view .LVU5
-  49 000c 3A4B     		ldr	r3, .L15
+  29:USER/BSP/Src/bsp_TIMIN.c **** 		    if(capture_Buf[0][1]>capture_Buf[0][0])
+  30:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
+  31:USER/BSP/Src/bsp_TIMIN.c **** 			else
+  32:USER/BSP/Src/bsp_TIMIN.c **** 				high_time[0] = capture_Buf[0][0]- capture_Buf[0][1];
+  33:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][0]=capture_Buf[0][1]=0;
+  34:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
+  35:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+  36:USER/BSP/Src/bsp_TIMIN.c ****     }
+  37:USER/BSP/Src/bsp_TIMIN.c **** 
+  38:USER/BSP/Src/bsp_TIMIN.c ****     // Channel 2
+  39:USER/BSP/Src/bsp_TIMIN.c ****     switch (capture_Cnt[1])
+  47              		.loc 1 39 5 is_stmt 1 view .LVU4
+  48              		.loc 1 39 24 is_stmt 0 view .LVU5
+  49 000c 474B     		ldr	r3, .L20
   50 000e 5B68     		ldr	r3, [r3, #4]
-  51              		.loc 1 35 5 view .LVU6
-  52 0010 3BB3     		cbz	r3, .L5
-  53 0012 032B     		cmp	r3, #3
-  54 0014 34D0     		beq	.L6
-  55              	.L7:
-  36:USER/BSP/Src/bsp_TIMIN.c ****     {
-  37:USER/BSP/Src/bsp_TIMIN.c **** 	    case 0:
-  38:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1]++;
-  39:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_2, TIM_INPUTCHANNELPOLARITY_RISING);
-  40:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
-  41:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
-  42:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
-  43:USER/BSP/Src/bsp_TIMIN.c **** 		    high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
-  44:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
-  45:USER/BSP/Src/bsp_TIMIN.c **** 			break;
-  46:USER/BSP/Src/bsp_TIMIN.c ****     }
-  47:USER/BSP/Src/bsp_TIMIN.c **** 
-  48:USER/BSP/Src/bsp_TIMIN.c ****     // Channel 3
-  49:USER/BSP/Src/bsp_TIMIN.c ****     switch (capture_Cnt[2])
-  56              		.loc 1 49 5 is_stmt 1 view .LVU7
-  57              		.loc 1 49 24 is_stmt 0 view .LVU8
-  58 0016 384B     		ldr	r3, .L15
-  59 0018 9B68     		ldr	r3, [r3, #8]
-  60              		.loc 1 49 5 view .LVU9
-  61 001a 002B     		cmp	r3, #0
-  62 001c 3AD0     		beq	.L8
-  63 001e 032B     		cmp	r3, #3
-  64 0020 47D0     		beq	.L9
-  65              	.L10:
-  50:USER/BSP/Src/bsp_TIMIN.c ****     {
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 3
+  51              		.loc 1 39 5 view .LVU6
+  52 0010 002B     		cmp	r3, #0
+  53 0012 30D0     		beq	.L7
+  54 0014 032B     		cmp	r3, #3
+  55 0016 3DD0     		beq	.L8
+  56              	.L9:
+  40:USER/BSP/Src/bsp_TIMIN.c ****     {
+  41:USER/BSP/Src/bsp_TIMIN.c **** 	    case 0:
+  42:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1]++;
+  43:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_2, TIM_INPUTCHANNELPOLARITY_RISING);
+  44:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
+  45:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
+  46:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
+  47:USER/BSP/Src/bsp_TIMIN.c **** 		    if(capture_Buf[1][1]>capture_Buf[1][0])
+  48:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
+  49:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[1][0]=capture_Buf[1][1]=0;
+  50:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
+  51:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+  52:USER/BSP/Src/bsp_TIMIN.c ****     }
+  53:USER/BSP/Src/bsp_TIMIN.c **** 
+  54:USER/BSP/Src/bsp_TIMIN.c ****     // Channel 3
+  55:USER/BSP/Src/bsp_TIMIN.c ****     switch (capture_Cnt[2])
+  57              		.loc 1 55 5 is_stmt 1 view .LVU7
+  58              		.loc 1 55 24 is_stmt 0 view .LVU8
+  59 0018 444B     		ldr	r3, .L20
+  60 001a 9B68     		ldr	r3, [r3, #8]
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 3
 
 
-  51:USER/BSP/Src/bsp_TIMIN.c **** 	    case 0:
-  52:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2]++;
-  53:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
-  54:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
-  55:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
-  56:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
-  57:USER/BSP/Src/bsp_TIMIN.c **** 		    high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
-  58:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
-  59:USER/BSP/Src/bsp_TIMIN.c **** 			break;
-  60:USER/BSP/Src/bsp_TIMIN.c ****     }
-  61:USER/BSP/Src/bsp_TIMIN.c ****     
-  62:USER/BSP/Src/bsp_TIMIN.c ****     // Channel 4
-  63:USER/BSP/Src/bsp_TIMIN.c ****     switch (capture_Cnt[3])
-  66              		.loc 1 63 5 is_stmt 1 view .LVU10
-  67              		.loc 1 63 24 is_stmt 0 view .LVU11
-  68 0022 354B     		ldr	r3, .L15
-  69 0024 DB68     		ldr	r3, [r3, #12]
-  70              		.loc 1 63 5 view .LVU12
-  71 0026 002B     		cmp	r3, #0
-  72 0028 4DD0     		beq	.L11
-  73 002a 032B     		cmp	r3, #3
-  74 002c 5AD0     		beq	.L12
-  75              	.L1:
-  64:USER/BSP/Src/bsp_TIMIN.c ****     {
-  65:USER/BSP/Src/bsp_TIMIN.c **** 	    case 0:
-  66:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3]++;
-  67:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_4, TIM_INPUTCHANNELPOLARITY_RISING);
-  68:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
-  69:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
-  70:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
-  71:USER/BSP/Src/bsp_TIMIN.c **** 		    high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
-  72:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
-  73:USER/BSP/Src/bsp_TIMIN.c **** 			break;
-  74:USER/BSP/Src/bsp_TIMIN.c ****     }
-  75:USER/BSP/Src/bsp_TIMIN.c **** 
-  76:USER/BSP/Src/bsp_TIMIN.c **** 
-  77:USER/BSP/Src/bsp_TIMIN.c **** 
-  78:USER/BSP/Src/bsp_TIMIN.c **** 
-  79:USER/BSP/Src/bsp_TIMIN.c **** }
-  76              		.loc 1 79 1 view .LVU13
-  77 002e 08BD     		pop	{r3, pc}
-  78              	.L2:
-  24:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
-  79              		.loc 1 24 7 is_stmt 1 view .LVU14
-  24:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
-  80              		.loc 1 24 21 is_stmt 0 view .LVU15
-  81 0030 0133     		adds	r3, r3, #1
-  82 0032 314A     		ldr	r2, .L15
-  83 0034 1360     		str	r3, [r2]
-  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
-  84              		.loc 1 25 13 is_stmt 1 view .LVU16
-  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
-  85              		.loc 1 25 13 view .LVU17
-  86 0036 3148     		ldr	r0, .L15+4
-  87 0038 0368     		ldr	r3, [r0]
-  88 003a 1A6A     		ldr	r2, [r3, #32]
-  89 003c 22F00A02 		bic	r2, r2, #10
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 4
-
-
-  90 0040 1A62     		str	r2, [r3, #32]
-  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
-  91              		.loc 1 25 13 view .LVU18
-  92 0042 1A6A     		ldr	r2, [r3, #32]
-  93 0044 1A62     		str	r2, [r3, #32]
-  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
-  94              		.loc 1 25 13 view .LVU19
-  26:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
-  95              		.loc 1 26 13 view .LVU20
-  96 0046 0021     		movs	r1, #0
-  97 0048 FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
-  98              	.LVL0:
-  27:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
-  99              		.loc 1 27 7 view .LVU21
- 100 004c DEE7     		b	.L4
- 101              	.L3:
-  29:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
- 102              		.loc 1 29 7 view .LVU22
-  29:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
- 103              		.loc 1 29 36 is_stmt 0 view .LVU23
- 104 004e 2C4A     		ldr	r2, .L15+8
- 105 0050 5368     		ldr	r3, [r2, #4]
-  29:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
- 106              		.loc 1 29 55 view .LVU24
- 107 0052 1268     		ldr	r2, [r2]
-  29:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
- 108              		.loc 1 29 39 view .LVU25
- 109 0054 9B1A     		subs	r3, r3, r2
-  29:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
- 110              		.loc 1 29 20 view .LVU26
- 111 0056 2B4A     		ldr	r2, .L15+12
- 112 0058 1360     		str	r3, [r2]
-  30:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 113              		.loc 1 30 7 is_stmt 1 view .LVU27
-  30:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 114              		.loc 1 30 22 is_stmt 0 view .LVU28
- 115 005a 274B     		ldr	r3, .L15
- 116 005c 0022     		movs	r2, #0
- 117 005e 1A60     		str	r2, [r3]
-  31:USER/BSP/Src/bsp_TIMIN.c ****     }
- 118              		.loc 1 31 4 is_stmt 1 view .LVU29
- 119 0060 D4E7     		b	.L4
- 120              	.L5:
-  38:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_2, TIM_INPUTCHANNELPOLARITY_RISING);
- 121              		.loc 1 38 7 view .LVU30
-  38:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_2, TIM_INPUTCHANNELPOLARITY_RISING);
- 122              		.loc 1 38 21 is_stmt 0 view .LVU31
- 123 0062 0133     		adds	r3, r3, #1
- 124 0064 244A     		ldr	r2, .L15
- 125 0066 5360     		str	r3, [r2, #4]
-  39:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
- 126              		.loc 1 39 13 is_stmt 1 view .LVU32
-  39:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
- 127              		.loc 1 39 13 view .LVU33
- 128 0068 2448     		ldr	r0, .L15+4
- 129 006a 0368     		ldr	r3, [r0]
- 130 006c 1A6A     		ldr	r2, [r3, #32]
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 5
-
-
- 131 006e 22F0A002 		bic	r2, r2, #160
- 132 0072 1A62     		str	r2, [r3, #32]
-  39:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
- 133              		.loc 1 39 13 view .LVU34
- 134 0074 1A6A     		ldr	r2, [r3, #32]
- 135 0076 1A62     		str	r2, [r3, #32]
-  39:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
- 136              		.loc 1 39 13 view .LVU35
-  40:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
- 137              		.loc 1 40 13 view .LVU36
- 138 0078 0421     		movs	r1, #4
- 139 007a FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
- 140              	.LVL1:
-  41:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
- 141              		.loc 1 41 7 view .LVU37
- 142 007e CAE7     		b	.L7
- 143              	.L6:
-  43:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
- 144              		.loc 1 43 7 view .LVU38
-  43:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
- 145              		.loc 1 43 36 is_stmt 0 view .LVU39
- 146 0080 1F4A     		ldr	r2, .L15+8
- 147 0082 D368     		ldr	r3, [r2, #12]
-  43:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
- 148              		.loc 1 43 55 view .LVU40
- 149 0084 9268     		ldr	r2, [r2, #8]
-  43:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
- 150              		.loc 1 43 39 view .LVU41
- 151 0086 9B1A     		subs	r3, r3, r2
-  43:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
- 152              		.loc 1 43 20 view .LVU42
- 153 0088 1E4A     		ldr	r2, .L15+12
- 154 008a 5360     		str	r3, [r2, #4]
-  44:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 155              		.loc 1 44 7 is_stmt 1 view .LVU43
-  44:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 156              		.loc 1 44 22 is_stmt 0 view .LVU44
- 157 008c 1A4B     		ldr	r3, .L15
- 158 008e 0022     		movs	r2, #0
- 159 0090 5A60     		str	r2, [r3, #4]
-  45:USER/BSP/Src/bsp_TIMIN.c ****     }
- 160              		.loc 1 45 4 is_stmt 1 view .LVU45
- 161 0092 C0E7     		b	.L7
- 162              	.L8:
-  52:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
- 163              		.loc 1 52 7 view .LVU46
-  52:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
- 164              		.loc 1 52 21 is_stmt 0 view .LVU47
- 165 0094 0133     		adds	r3, r3, #1
- 166 0096 184A     		ldr	r2, .L15
- 167 0098 9360     		str	r3, [r2, #8]
-  53:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
- 168              		.loc 1 53 13 is_stmt 1 view .LVU48
-  53:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
- 169              		.loc 1 53 13 view .LVU49
- 170 009a 1848     		ldr	r0, .L15+4
- 171 009c 0368     		ldr	r3, [r0]
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 6
-
-
- 172 009e 1A6A     		ldr	r2, [r3, #32]
- 173 00a0 22F42062 		bic	r2, r2, #2560
- 174 00a4 1A62     		str	r2, [r3, #32]
-  53:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
- 175              		.loc 1 53 13 view .LVU50
- 176 00a6 1A6A     		ldr	r2, [r3, #32]
- 177 00a8 1A62     		str	r2, [r3, #32]
-  53:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
- 178              		.loc 1 53 13 view .LVU51
-  54:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
- 179              		.loc 1 54 13 view .LVU52
- 180 00aa 0821     		movs	r1, #8
- 181 00ac FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
- 182              	.LVL2:
-  55:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
- 183              		.loc 1 55 7 view .LVU53
- 184 00b0 B7E7     		b	.L10
- 185              	.L9:
-  57:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
- 186              		.loc 1 57 7 view .LVU54
-  57:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
- 187              		.loc 1 57 36 is_stmt 0 view .LVU55
- 188 00b2 134A     		ldr	r2, .L15+8
- 189 00b4 5369     		ldr	r3, [r2, #20]
-  57:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
- 190              		.loc 1 57 55 view .LVU56
- 191 00b6 1269     		ldr	r2, [r2, #16]
-  57:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
- 192              		.loc 1 57 39 view .LVU57
- 193 00b8 9B1A     		subs	r3, r3, r2
-  57:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
- 194              		.loc 1 57 20 view .LVU58
- 195 00ba 124A     		ldr	r2, .L15+12
- 196 00bc 9360     		str	r3, [r2, #8]
-  58:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 197              		.loc 1 58 7 is_stmt 1 view .LVU59
-  58:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 198              		.loc 1 58 22 is_stmt 0 view .LVU60
- 199 00be 0E4B     		ldr	r3, .L15
- 200 00c0 0022     		movs	r2, #0
- 201 00c2 9A60     		str	r2, [r3, #8]
-  59:USER/BSP/Src/bsp_TIMIN.c ****     }
- 202              		.loc 1 59 4 is_stmt 1 view .LVU61
- 203 00c4 ADE7     		b	.L10
- 204              	.L11:
-  66:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_4, TIM_INPUTCHANNELPOLARITY_RISING);
- 205              		.loc 1 66 7 view .LVU62
-  66:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_4, TIM_INPUTCHANNELPOLARITY_RISING);
- 206              		.loc 1 66 21 is_stmt 0 view .LVU63
- 207 00c6 0133     		adds	r3, r3, #1
- 208 00c8 0B4A     		ldr	r2, .L15
- 209 00ca D360     		str	r3, [r2, #12]
-  67:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
- 210              		.loc 1 67 13 is_stmt 1 view .LVU64
-  67:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
- 211              		.loc 1 67 13 view .LVU65
- 212 00cc 0B48     		ldr	r0, .L15+4
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 7
-
-
- 213 00ce 0368     		ldr	r3, [r0]
- 214 00d0 1A6A     		ldr	r2, [r3, #32]
- 215 00d2 22F42042 		bic	r2, r2, #40960
- 216 00d6 1A62     		str	r2, [r3, #32]
-  67:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
- 217              		.loc 1 67 13 view .LVU66
- 218 00d8 1A6A     		ldr	r2, [r3, #32]
- 219 00da 1A62     		str	r2, [r3, #32]
-  67:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
- 220              		.loc 1 67 13 view .LVU67
-  68:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
- 221              		.loc 1 68 13 view .LVU68
- 222 00dc 0C21     		movs	r1, #12
- 223 00de FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
- 224              	.LVL3:
-  69:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
- 225              		.loc 1 69 7 view .LVU69
- 226 00e2 A4E7     		b	.L1
- 227              	.L12:
-  71:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
- 228              		.loc 1 71 7 view .LVU70
-  71:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
- 229              		.loc 1 71 36 is_stmt 0 view .LVU71
- 230 00e4 064A     		ldr	r2, .L15+8
- 231 00e6 D369     		ldr	r3, [r2, #28]
-  71:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
- 232              		.loc 1 71 55 view .LVU72
- 233 00e8 9269     		ldr	r2, [r2, #24]
-  71:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
- 234              		.loc 1 71 39 view .LVU73
- 235 00ea 9B1A     		subs	r3, r3, r2
-  71:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
- 236              		.loc 1 71 20 view .LVU74
- 237 00ec 054A     		ldr	r2, .L15+12
- 238 00ee D360     		str	r3, [r2, #12]
-  72:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 239              		.loc 1 72 7 is_stmt 1 view .LVU75
-  72:USER/BSP/Src/bsp_TIMIN.c **** 			break;
- 240              		.loc 1 72 22 is_stmt 0 view .LVU76
- 241 00f0 014B     		ldr	r3, .L15
- 242 00f2 0022     		movs	r2, #0
- 243 00f4 DA60     		str	r2, [r3, #12]
-  73:USER/BSP/Src/bsp_TIMIN.c ****     }
- 244              		.loc 1 73 4 is_stmt 1 view .LVU77
- 245              		.loc 1 79 1 is_stmt 0 view .LVU78
- 246 00f6 9AE7     		b	.L1
- 247              	.L16:
- 248              		.align	2
- 249              	.L15:
- 250 00f8 00000000 		.word	capture_Cnt
- 251 00fc 00000000 		.word	htim1
- 252 0100 00000000 		.word	capture_Buf
- 253 0104 00000000 		.word	high_time
- 254              		.cfi_endproc
- 255              	.LFE133:
- 257              		.section	.text.HAL_TIM_IC_CaptureCallback,"ax",%progbits
- 258              		.align	1
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 8
-
-
- 259              		.global	HAL_TIM_IC_CaptureCallback
- 260              		.syntax unified
- 261              		.thumb
- 262              		.thumb_func
- 263              		.fpu fpv4-sp-d16
- 265              	HAL_TIM_IC_CaptureCallback:
- 266              	.LVL4:
- 267              	.LFB134:
-  80:USER/BSP/Src/bsp_TIMIN.c **** 
-  81:USER/BSP/Src/bsp_TIMIN.c **** 
-  82:USER/BSP/Src/bsp_TIMIN.c **** 
-  83:USER/BSP/Src/bsp_TIMIN.c **** 
-  84:USER/BSP/Src/bsp_TIMIN.c **** 
+  61              		.loc 1 55 5 view .LVU9
+  62 001c 002B     		cmp	r3, #0
+  63 001e 48D0     		beq	.L11
+  64 0020 032B     		cmp	r3, #3
+  65 0022 55D0     		beq	.L12
+  66              	.L13:
+  56:USER/BSP/Src/bsp_TIMIN.c ****     {
+  57:USER/BSP/Src/bsp_TIMIN.c **** 	    case 0:
+  58:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2]++;
+  59:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
+  60:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
+  61:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
+  62:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
+  63:USER/BSP/Src/bsp_TIMIN.c **** 			if(capture_Buf[2][1]>capture_Buf[2][0])
+  64:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
+  65:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[2][1]=capture_Buf[2][0]=0;
+  66:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
+  67:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+  68:USER/BSP/Src/bsp_TIMIN.c ****     }
+  69:USER/BSP/Src/bsp_TIMIN.c ****     
+  70:USER/BSP/Src/bsp_TIMIN.c ****     // Channel 4
+  71:USER/BSP/Src/bsp_TIMIN.c ****     switch (capture_Cnt[3])
+  67              		.loc 1 71 5 is_stmt 1 view .LVU10
+  68              		.loc 1 71 24 is_stmt 0 view .LVU11
+  69 0024 414B     		ldr	r3, .L20
+  70 0026 DB68     		ldr	r3, [r3, #12]
+  71              		.loc 1 71 5 view .LVU12
+  72 0028 002B     		cmp	r3, #0
+  73 002a 60D0     		beq	.L15
+  74 002c 032B     		cmp	r3, #3
+  75 002e 6DD0     		beq	.L16
+  76              	.L1:
+  72:USER/BSP/Src/bsp_TIMIN.c ****     {
+  73:USER/BSP/Src/bsp_TIMIN.c **** 	    case 0:
+  74:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3]++;
+  75:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_4, TIM_INPUTCHANNELPOLARITY_RISING);
+  76:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
+  77:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
+  78:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
+  79:USER/BSP/Src/bsp_TIMIN.c **** 		    if(capture_Buf[3][1]>capture_Buf[3][0])
+  80:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
+  81:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[3][1]=capture_Buf[3][0]=0;
+  82:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
+  83:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+  84:USER/BSP/Src/bsp_TIMIN.c ****     }
   85:USER/BSP/Src/bsp_TIMIN.c **** 
   86:USER/BSP/Src/bsp_TIMIN.c **** 
   87:USER/BSP/Src/bsp_TIMIN.c **** 
   88:USER/BSP/Src/bsp_TIMIN.c **** 
-  89:USER/BSP/Src/bsp_TIMIN.c **** 
+  89:USER/BSP/Src/bsp_TIMIN.c **** }
+  77              		.loc 1 89 1 view .LVU13
+  78 0030 08BD     		pop	{r3, pc}
+  79              	.L2:
+  24:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
+  80              		.loc 1 24 7 is_stmt 1 view .LVU14
+  24:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_1, TIM_INPUTCHANNELPOLARITY_RISING);
+  81              		.loc 1 24 21 is_stmt 0 view .LVU15
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 4
+
+
+  82 0032 0133     		adds	r3, r3, #1
+  83 0034 3D4A     		ldr	r2, .L20
+  84 0036 1360     		str	r3, [r2]
+  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
+  85              		.loc 1 25 13 is_stmt 1 view .LVU16
+  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
+  86              		.loc 1 25 13 view .LVU17
+  87 0038 3D48     		ldr	r0, .L20+4
+  88 003a 0368     		ldr	r3, [r0]
+  89 003c 1A6A     		ldr	r2, [r3, #32]
+  90 003e 22F00A02 		bic	r2, r2, #10
+  91 0042 1A62     		str	r2, [r3, #32]
+  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
+  92              		.loc 1 25 13 view .LVU18
+  93 0044 1A6A     		ldr	r2, [r3, #32]
+  94 0046 1A62     		str	r2, [r3, #32]
+  25:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TI
+  95              		.loc 1 25 13 view .LVU19
+  26:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
+  96              		.loc 1 26 13 view .LVU20
+  97 0048 0021     		movs	r1, #0
+  98 004a FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
+  99              	.LVL0:
+  27:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
+ 100              		.loc 1 27 7 view .LVU21
+ 101 004e DDE7     		b	.L4
+ 102              	.L3:
+  29:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
+ 103              		.loc 1 29 7 view .LVU22
+  29:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
+ 104              		.loc 1 29 24 is_stmt 0 view .LVU23
+ 105 0050 384B     		ldr	r3, .L20+8
+ 106 0052 5A68     		ldr	r2, [r3, #4]
+  29:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
+ 107              		.loc 1 29 42 view .LVU24
+ 108 0054 1B68     		ldr	r3, [r3]
+  29:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
+ 109              		.loc 1 29 9 view .LVU25
+ 110 0056 9A42     		cmp	r2, r3
+ 111 0058 09D9     		bls	.L5
+  30:USER/BSP/Src/bsp_TIMIN.c **** 			else
+ 112              		.loc 1 30 8 is_stmt 1 view .LVU26
+  30:USER/BSP/Src/bsp_TIMIN.c **** 			else
+ 113              		.loc 1 30 40 is_stmt 0 view .LVU27
+ 114 005a D31A     		subs	r3, r2, r3
+  30:USER/BSP/Src/bsp_TIMIN.c **** 			else
+ 115              		.loc 1 30 21 view .LVU28
+ 116 005c 364A     		ldr	r2, .L20+12
+ 117 005e 1360     		str	r3, [r2]
+ 118              	.L6:
+  33:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
+ 119              		.loc 1 33 5 is_stmt 1 view .LVU29
+  33:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
+ 120              		.loc 1 33 40 is_stmt 0 view .LVU30
+ 121 0060 344A     		ldr	r2, .L20+8
+ 122 0062 0023     		movs	r3, #0
+ 123 0064 5360     		str	r3, [r2, #4]
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 5
+
+
+  33:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[0] = 0;  //清空标志位
+ 124              		.loc 1 33 22 view .LVU31
+ 125 0066 1360     		str	r3, [r2]
+  34:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 126              		.loc 1 34 7 is_stmt 1 view .LVU32
+  34:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 127              		.loc 1 34 22 is_stmt 0 view .LVU33
+ 128 0068 304A     		ldr	r2, .L20
+ 129 006a 1360     		str	r3, [r2]
+  35:USER/BSP/Src/bsp_TIMIN.c ****     }
+ 130              		.loc 1 35 4 is_stmt 1 view .LVU34
+ 131 006c CEE7     		b	.L4
+ 132              	.L5:
+  32:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][0]=capture_Buf[0][1]=0;
+ 133              		.loc 1 32 5 view .LVU35
+  32:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][0]=capture_Buf[0][1]=0;
+ 134              		.loc 1 32 37 is_stmt 0 view .LVU36
+ 135 006e 9B1A     		subs	r3, r3, r2
+  32:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][0]=capture_Buf[0][1]=0;
+ 136              		.loc 1 32 18 view .LVU37
+ 137 0070 314A     		ldr	r2, .L20+12
+ 138 0072 1360     		str	r3, [r2]
+ 139 0074 F4E7     		b	.L6
+ 140              	.L7:
+  42:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_2, TIM_INPUTCHANNELPOLARITY_RISING);
+ 141              		.loc 1 42 7 is_stmt 1 view .LVU38
+  42:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_2, TIM_INPUTCHANNELPOLARITY_RISING);
+ 142              		.loc 1 42 21 is_stmt 0 view .LVU39
+ 143 0076 0133     		adds	r3, r3, #1
+ 144 0078 2C4A     		ldr	r2, .L20
+ 145 007a 5360     		str	r3, [r2, #4]
+  43:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
+ 146              		.loc 1 43 13 is_stmt 1 view .LVU40
+  43:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
+ 147              		.loc 1 43 13 view .LVU41
+ 148 007c 2C48     		ldr	r0, .L20+4
+ 149 007e 0368     		ldr	r3, [r0]
+ 150 0080 1A6A     		ldr	r2, [r3, #32]
+ 151 0082 22F0A002 		bic	r2, r2, #160
+ 152 0086 1A62     		str	r2, [r3, #32]
+  43:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
+ 153              		.loc 1 43 13 view .LVU42
+ 154 0088 1A6A     		ldr	r2, [r3, #32]
+ 155 008a 1A62     		str	r2, [r3, #32]
+  43:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TI
+ 156              		.loc 1 43 13 view .LVU43
+  44:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
+ 157              		.loc 1 44 13 view .LVU44
+ 158 008c 0421     		movs	r1, #4
+ 159 008e FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
+ 160              	.LVL1:
+  45:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
+ 161              		.loc 1 45 7 view .LVU45
+ 162 0092 C1E7     		b	.L9
+ 163              	.L8:
+  47:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
+ 164              		.loc 1 47 7 view .LVU46
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 6
+
+
+  47:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
+ 165              		.loc 1 47 24 is_stmt 0 view .LVU47
+ 166 0094 274A     		ldr	r2, .L20+8
+ 167 0096 D368     		ldr	r3, [r2, #12]
+  47:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
+ 168              		.loc 1 47 42 view .LVU48
+ 169 0098 9268     		ldr	r2, [r2, #8]
+  47:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
+ 170              		.loc 1 47 9 view .LVU49
+ 171 009a 9342     		cmp	r3, r2
+ 172 009c 02D9     		bls	.L10
+  48:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[1][0]=capture_Buf[1][1]=0;
+ 173              		.loc 1 48 8 is_stmt 1 view .LVU50
+  48:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[1][0]=capture_Buf[1][1]=0;
+ 174              		.loc 1 48 40 is_stmt 0 view .LVU51
+ 175 009e 9B1A     		subs	r3, r3, r2
+  48:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[1][0]=capture_Buf[1][1]=0;
+ 176              		.loc 1 48 21 view .LVU52
+ 177 00a0 254A     		ldr	r2, .L20+12
+ 178 00a2 5360     		str	r3, [r2, #4]
+ 179              	.L10:
+  49:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
+ 180              		.loc 1 49 4 is_stmt 1 view .LVU53
+  49:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
+ 181              		.loc 1 49 39 is_stmt 0 view .LVU54
+ 182 00a4 234A     		ldr	r2, .L20+8
+ 183 00a6 0023     		movs	r3, #0
+ 184 00a8 D360     		str	r3, [r2, #12]
+  49:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[1] = 0;  //清空标志位
+ 185              		.loc 1 49 21 view .LVU55
+ 186 00aa 9360     		str	r3, [r2, #8]
+  50:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 187              		.loc 1 50 7 is_stmt 1 view .LVU56
+  50:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 188              		.loc 1 50 22 is_stmt 0 view .LVU57
+ 189 00ac 1F4A     		ldr	r2, .L20
+ 190 00ae 5360     		str	r3, [r2, #4]
+  51:USER/BSP/Src/bsp_TIMIN.c ****     }
+ 191              		.loc 1 51 4 is_stmt 1 view .LVU58
+ 192 00b0 B2E7     		b	.L9
+ 193              	.L11:
+  58:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
+ 194              		.loc 1 58 7 view .LVU59
+  58:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
+ 195              		.loc 1 58 21 is_stmt 0 view .LVU60
+ 196 00b2 0133     		adds	r3, r3, #1
+ 197 00b4 1D4A     		ldr	r2, .L20
+ 198 00b6 9360     		str	r3, [r2, #8]
+  59:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
+ 199              		.loc 1 59 13 is_stmt 1 view .LVU61
+  59:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
+ 200              		.loc 1 59 13 view .LVU62
+ 201 00b8 1D48     		ldr	r0, .L20+4
+ 202 00ba 0368     		ldr	r3, [r0]
+ 203 00bc 1A6A     		ldr	r2, [r3, #32]
+ 204 00be 22F42062 		bic	r2, r2, #2560
+ 205 00c2 1A62     		str	r2, [r3, #32]
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 7
+
+
+  59:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
+ 206              		.loc 1 59 13 view .LVU63
+ 207 00c4 1A6A     		ldr	r2, [r3, #32]
+ 208 00c6 1A62     		str	r2, [r3, #32]
+  59:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TI
+ 209              		.loc 1 59 13 view .LVU64
+  60:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
+ 210              		.loc 1 60 13 view .LVU65
+ 211 00c8 0821     		movs	r1, #8
+ 212 00ca FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
+ 213              	.LVL2:
+  61:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
+ 214              		.loc 1 61 7 view .LVU66
+ 215 00ce A9E7     		b	.L13
+ 216              	.L12:
+  63:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
+ 217              		.loc 1 63 4 view .LVU67
+  63:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
+ 218              		.loc 1 63 21 is_stmt 0 view .LVU68
+ 219 00d0 184A     		ldr	r2, .L20+8
+ 220 00d2 5369     		ldr	r3, [r2, #20]
+  63:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
+ 221              		.loc 1 63 39 view .LVU69
+ 222 00d4 1269     		ldr	r2, [r2, #16]
+  63:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
+ 223              		.loc 1 63 6 view .LVU70
+ 224 00d6 9342     		cmp	r3, r2
+ 225 00d8 02D9     		bls	.L14
+  64:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[2][1]=capture_Buf[2][0]=0;
+ 226              		.loc 1 64 8 is_stmt 1 view .LVU71
+  64:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[2][1]=capture_Buf[2][0]=0;
+ 227              		.loc 1 64 40 is_stmt 0 view .LVU72
+ 228 00da 9B1A     		subs	r3, r3, r2
+  64:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[2][1]=capture_Buf[2][0]=0;
+ 229              		.loc 1 64 21 view .LVU73
+ 230 00dc 164A     		ldr	r2, .L20+12
+ 231 00de 9360     		str	r3, [r2, #8]
+ 232              	.L14:
+  65:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
+ 233              		.loc 1 65 4 is_stmt 1 view .LVU74
+  65:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
+ 234              		.loc 1 65 39 is_stmt 0 view .LVU75
+ 235 00e0 144A     		ldr	r2, .L20+8
+ 236 00e2 0023     		movs	r3, #0
+ 237 00e4 1361     		str	r3, [r2, #16]
+  65:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[2] = 0;  //清空标志位
+ 238              		.loc 1 65 21 view .LVU76
+ 239 00e6 5361     		str	r3, [r2, #20]
+  66:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 240              		.loc 1 66 7 is_stmt 1 view .LVU77
+  66:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 241              		.loc 1 66 22 is_stmt 0 view .LVU78
+ 242 00e8 104A     		ldr	r2, .L20
+ 243 00ea 9360     		str	r3, [r2, #8]
+  67:USER/BSP/Src/bsp_TIMIN.c ****     }
+ 244              		.loc 1 67 4 is_stmt 1 view .LVU79
+ 245 00ec 9AE7     		b	.L13
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 8
+
+
+ 246              	.L15:
+  74:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_4, TIM_INPUTCHANNELPOLARITY_RISING);
+ 247              		.loc 1 74 7 view .LVU80
+  74:USER/BSP/Src/bsp_TIMIN.c ****             __HAL_TIM_SET_CAPTUREPOLARITY(&htim1, TIM_CHANNEL_4, TIM_INPUTCHANNELPOLARITY_RISING);
+ 248              		.loc 1 74 21 is_stmt 0 view .LVU81
+ 249 00ee 0133     		adds	r3, r3, #1
+ 250 00f0 0E4A     		ldr	r2, .L20
+ 251 00f2 D360     		str	r3, [r2, #12]
+  75:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
+ 252              		.loc 1 75 13 is_stmt 1 view .LVU82
+  75:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
+ 253              		.loc 1 75 13 view .LVU83
+ 254 00f4 0E48     		ldr	r0, .L20+4
+ 255 00f6 0368     		ldr	r3, [r0]
+ 256 00f8 1A6A     		ldr	r2, [r3, #32]
+ 257 00fa 22F42042 		bic	r2, r2, #40960
+ 258 00fe 1A62     		str	r2, [r3, #32]
+  75:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
+ 259              		.loc 1 75 13 view .LVU84
+ 260 0100 1A6A     		ldr	r2, [r3, #32]
+ 261 0102 1A62     		str	r2, [r3, #32]
+  75:USER/BSP/Src/bsp_TIMIN.c ****             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TI
+ 262              		.loc 1 75 13 view .LVU85
+  76:USER/BSP/Src/bsp_TIMIN.c **** 		    break;
+ 263              		.loc 1 76 13 view .LVU86
+ 264 0104 0C21     		movs	r1, #12
+ 265 0106 FFF7FEFF 		bl	HAL_TIM_IC_Start_IT
+ 266              	.LVL3:
+  77:USER/BSP/Src/bsp_TIMIN.c **** 	    case 3:
+ 267              		.loc 1 77 7 view .LVU87
+ 268 010a 91E7     		b	.L1
+ 269              	.L16:
+  79:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
+ 270              		.loc 1 79 7 view .LVU88
+  79:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
+ 271              		.loc 1 79 24 is_stmt 0 view .LVU89
+ 272 010c 094A     		ldr	r2, .L20+8
+ 273 010e D369     		ldr	r3, [r2, #28]
+  79:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
+ 274              		.loc 1 79 42 view .LVU90
+ 275 0110 9269     		ldr	r2, [r2, #24]
+  79:USER/BSP/Src/bsp_TIMIN.c **** 		   		high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
+ 276              		.loc 1 79 9 view .LVU91
+ 277 0112 9342     		cmp	r3, r2
+ 278 0114 02D9     		bls	.L18
+  80:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[3][1]=capture_Buf[3][0]=0;
+ 279              		.loc 1 80 8 is_stmt 1 view .LVU92
+  80:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[3][1]=capture_Buf[3][0]=0;
+ 280              		.loc 1 80 40 is_stmt 0 view .LVU93
+ 281 0116 9B1A     		subs	r3, r3, r2
+  80:USER/BSP/Src/bsp_TIMIN.c **** 			capture_Buf[3][1]=capture_Buf[3][0]=0;
+ 282              		.loc 1 80 21 view .LVU94
+ 283 0118 074A     		ldr	r2, .L20+12
+ 284 011a D360     		str	r3, [r2, #12]
+ 285              	.L18:
+  81:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
+ 286              		.loc 1 81 4 is_stmt 1 view .LVU95
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 9
+
+
+  81:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
+ 287              		.loc 1 81 39 is_stmt 0 view .LVU96
+ 288 011c 054A     		ldr	r2, .L20+8
+ 289 011e 0023     		movs	r3, #0
+ 290 0120 9361     		str	r3, [r2, #24]
+  81:USER/BSP/Src/bsp_TIMIN.c **** 		    capture_Cnt[3] = 0;  //清空标志位
+ 291              		.loc 1 81 21 view .LVU97
+ 292 0122 D361     		str	r3, [r2, #28]
+  82:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 293              		.loc 1 82 7 is_stmt 1 view .LVU98
+  82:USER/BSP/Src/bsp_TIMIN.c **** 			break;
+ 294              		.loc 1 82 22 is_stmt 0 view .LVU99
+ 295 0124 014A     		ldr	r2, .L20
+ 296 0126 D360     		str	r3, [r2, #12]
+  83:USER/BSP/Src/bsp_TIMIN.c ****     }
+ 297              		.loc 1 83 4 is_stmt 1 view .LVU100
+ 298              		.loc 1 89 1 is_stmt 0 view .LVU101
+ 299 0128 82E7     		b	.L1
+ 300              	.L21:
+ 301 012a 00BF     		.align	2
+ 302              	.L20:
+ 303 012c 00000000 		.word	capture_Cnt
+ 304 0130 00000000 		.word	htim1
+ 305 0134 00000000 		.word	capture_Buf
+ 306 0138 00000000 		.word	high_time
+ 307              		.cfi_endproc
+ 308              	.LFE133:
+ 310              		.section	.text.HAL_TIM_IC_CaptureCallback,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	HAL_TIM_IC_CaptureCallback
+ 313              		.syntax unified
+ 314              		.thumb
+ 315              		.thumb_func
+ 316              		.fpu fpv4-sp-d16
+ 318              	HAL_TIM_IC_CaptureCallback:
+ 319              	.LVL4:
+ 320              	.LFB134:
   90:USER/BSP/Src/bsp_TIMIN.c **** 
   91:USER/BSP/Src/bsp_TIMIN.c **** 
   92:USER/BSP/Src/bsp_TIMIN.c **** 
   93:USER/BSP/Src/bsp_TIMIN.c **** 
   94:USER/BSP/Src/bsp_TIMIN.c **** 
-  95:USER/BSP/Src/bsp_TIMIN.c **** /**
-  96:USER/BSP/Src/bsp_TIMIN.c ****  * @brief 函数是在中断服务函数中被调用，转换中断触发条件
-  97:USER/BSP/Src/bsp_TIMIN.c ****  * 
-  98:USER/BSP/Src/bsp_TIMIN.c ****  * @param htim 
-  99:USER/BSP/Src/bsp_TIMIN.c ****  */
+  95:USER/BSP/Src/bsp_TIMIN.c **** 
+  96:USER/BSP/Src/bsp_TIMIN.c **** 
+  97:USER/BSP/Src/bsp_TIMIN.c **** 
+  98:USER/BSP/Src/bsp_TIMIN.c **** 
+  99:USER/BSP/Src/bsp_TIMIN.c **** 
  100:USER/BSP/Src/bsp_TIMIN.c **** 
- 101:USER/BSP/Src/bsp_TIMIN.c **** void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
- 102:USER/BSP/Src/bsp_TIMIN.c **** {
- 268              		.loc 1 102 1 is_stmt 1 view -0
- 269              		.cfi_startproc
- 270              		@ args = 0, pretend = 0, frame = 0
- 271              		@ frame_needed = 0, uses_anonymous_args = 0
- 103:USER/BSP/Src/bsp_TIMIN.c **** 	if(TIM1 == htim->Instance)
- 272              		.loc 1 103 2 view .LVU80
- 273              		.loc 1 103 17 is_stmt 0 view .LVU81
- 274 0000 0268     		ldr	r2, [r0]
- 275              		.loc 1 103 4 view .LVU82
- 276 0002 594B     		ldr	r3, .L35
- 277 0004 9A42     		cmp	r2, r3
- 278 0006 00D0     		beq	.L34
- 279 0008 7047     		bx	lr
- 280              	.L34:
- 102:USER/BSP/Src/bsp_TIMIN.c **** 	if(TIM1 == htim->Instance)
- 281              		.loc 1 102 1 view .LVU83
- 282 000a 10B5     		push	{r4, lr}
- 283              	.LCFI1:
- 284              		.cfi_def_cfa_offset 8
- 285              		.cfi_offset 4, -8
- 286              		.cfi_offset 14, -4
- 104:USER/BSP/Src/bsp_TIMIN.c **** 	{   
- 105:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 1 caputure interrupt
- 106:USER/BSP/Src/bsp_TIMIN.c **** 		switch(capture_Cnt[0]){
- 287              		.loc 1 106 3 is_stmt 1 view .LVU84
- 288              		.loc 1 106 21 is_stmt 0 view .LVU85
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 9
+ 101:USER/BSP/Src/bsp_TIMIN.c **** 
+ 102:USER/BSP/Src/bsp_TIMIN.c **** 
+ 103:USER/BSP/Src/bsp_TIMIN.c **** 
+ 104:USER/BSP/Src/bsp_TIMIN.c **** 
+ 105:USER/BSP/Src/bsp_TIMIN.c **** /**
+ 106:USER/BSP/Src/bsp_TIMIN.c ****  * @brief 函数是在中断服务函数中被调用，转换中断触发条件
+ 107:USER/BSP/Src/bsp_TIMIN.c ****  * 
+ 108:USER/BSP/Src/bsp_TIMIN.c ****  * @param htim 
+ 109:USER/BSP/Src/bsp_TIMIN.c ****  */
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 10
 
 
- 289 000c 574B     		ldr	r3, .L35+4
- 290 000e 1B68     		ldr	r3, [r3]
- 291              		.loc 1 106 3 view .LVU86
- 292 0010 012B     		cmp	r3, #1
- 293 0012 15D0     		beq	.L19
- 294 0014 022B     		cmp	r3, #2
- 295 0016 28D0     		beq	.L20
- 296              	.LVL5:
- 297              	.L21:
- 107:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
- 108:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
- 109:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 110:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
- 111:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 112:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 113:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
- 114:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
- 115:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++; 
- 116:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
- 117:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 118:USER/BSP/Src/bsp_TIMIN.c **** 
- 119:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 2 caputure interrupt
- 120:USER/BSP/Src/bsp_TIMIN.c ****         switch(capture_Cnt[1]){
- 298              		.loc 1 120 9 is_stmt 1 view .LVU87
- 299              		.loc 1 120 27 is_stmt 0 view .LVU88
- 300 0018 544B     		ldr	r3, .L35+4
- 301 001a 5B68     		ldr	r3, [r3, #4]
- 302              		.loc 1 120 9 view .LVU89
- 303 001c 012B     		cmp	r3, #1
- 304 001e 34D0     		beq	.L22
- 305 0020 022B     		cmp	r3, #2
- 306 0022 47D0     		beq	.L23
- 307              	.L24:
- 121:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
- 122:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[1][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_2);//获取当前的捕获值.
- 123:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 124:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
- 125:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 126:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 127:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[1][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
- 128:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 129:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++; 
- 130:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 131:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 132:USER/BSP/Src/bsp_TIMIN.c **** 
- 133:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 3 caputure interrupt
- 134:USER/BSP/Src/bsp_TIMIN.c ****         switch(capture_Cnt[2]){
- 308              		.loc 1 134 9 is_stmt 1 view .LVU90
- 309              		.loc 1 134 27 is_stmt 0 view .LVU91
- 310 0024 514B     		ldr	r3, .L35+4
- 311 0026 9B68     		ldr	r3, [r3, #8]
- 312              		.loc 1 134 9 view .LVU92
- 313 0028 012B     		cmp	r3, #1
- 314 002a 53D0     		beq	.L25
- 315 002c 022B     		cmp	r3, #2
- 316 002e 66D0     		beq	.L26
- 317              	.L27:
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 10
+ 110:USER/BSP/Src/bsp_TIMIN.c **** 
+ 111:USER/BSP/Src/bsp_TIMIN.c **** void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+ 112:USER/BSP/Src/bsp_TIMIN.c **** {
+ 321              		.loc 1 112 1 is_stmt 1 view -0
+ 322              		.cfi_startproc
+ 323              		@ args = 0, pretend = 0, frame = 0
+ 324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113:USER/BSP/Src/bsp_TIMIN.c **** 	if(TIM1 == htim->Instance)
+ 325              		.loc 1 113 2 view .LVU103
+ 326              		.loc 1 113 17 is_stmt 0 view .LVU104
+ 327 0000 0268     		ldr	r2, [r0]
+ 328              		.loc 1 113 4 view .LVU105
+ 329 0002 594B     		ldr	r3, .L40
+ 330 0004 9A42     		cmp	r2, r3
+ 331 0006 00D0     		beq	.L39
+ 332 0008 7047     		bx	lr
+ 333              	.L39:
+ 112:USER/BSP/Src/bsp_TIMIN.c **** 	if(TIM1 == htim->Instance)
+ 334              		.loc 1 112 1 view .LVU106
+ 335 000a 10B5     		push	{r4, lr}
+ 336              	.LCFI1:
+ 337              		.cfi_def_cfa_offset 8
+ 338              		.cfi_offset 4, -8
+ 339              		.cfi_offset 14, -4
+ 114:USER/BSP/Src/bsp_TIMIN.c **** 	{   
+ 115:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 1 caputure interrupt
+ 116:USER/BSP/Src/bsp_TIMIN.c **** 		switch(capture_Cnt[0]){
+ 340              		.loc 1 116 3 is_stmt 1 view .LVU107
+ 341              		.loc 1 116 21 is_stmt 0 view .LVU108
+ 342 000c 574B     		ldr	r3, .L40+4
+ 343 000e 1B68     		ldr	r3, [r3]
+ 344              		.loc 1 116 3 view .LVU109
+ 345 0010 012B     		cmp	r3, #1
+ 346 0012 15D0     		beq	.L24
+ 347 0014 022B     		cmp	r3, #2
+ 348 0016 28D0     		beq	.L25
+ 349              	.LVL5:
+ 350              	.L26:
+ 117:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
+ 118:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
+ 119:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 120:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
+ 121:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 122:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ 123:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[0][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
+ 124:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
+ 125:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++; 
+ 126:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
+ 127:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 128:USER/BSP/Src/bsp_TIMIN.c **** 
+ 129:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 2 caputure interrupt
+ 130:USER/BSP/Src/bsp_TIMIN.c ****         switch(capture_Cnt[1]){
+ 351              		.loc 1 130 9 is_stmt 1 view .LVU110
+ 352              		.loc 1 130 27 is_stmt 0 view .LVU111
+ 353 0018 544B     		ldr	r3, .L40+4
+ 354 001a 5B68     		ldr	r3, [r3, #4]
+ 355              		.loc 1 130 9 view .LVU112
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 11
 
 
- 135:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
- 136:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[2][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
- 137:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 138:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
+ 356 001c 012B     		cmp	r3, #1
+ 357 001e 34D0     		beq	.L27
+ 358 0020 022B     		cmp	r3, #2
+ 359 0022 47D0     		beq	.L28
+ 360              	.L29:
+ 131:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
+ 132:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[1][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_2);//获取当前的捕获值.
+ 133:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 134:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
+ 135:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 136:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ 137:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[1][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_2);//获取当前的捕获值.
+ 138:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_2); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 139:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++; 
+ 140:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 141:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 142:USER/BSP/Src/bsp_TIMIN.c **** 
+ 143:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 3 caputure interrupt
+ 144:USER/BSP/Src/bsp_TIMIN.c ****         switch(capture_Cnt[2]){
+ 361              		.loc 1 144 9 is_stmt 1 view .LVU113
+ 362              		.loc 1 144 27 is_stmt 0 view .LVU114
+ 363 0024 514B     		ldr	r3, .L40+4
+ 364 0026 9B68     		ldr	r3, [r3, #8]
+ 365              		.loc 1 144 9 view .LVU115
+ 366 0028 012B     		cmp	r3, #1
+ 367 002a 53D0     		beq	.L30
+ 368 002c 022B     		cmp	r3, #2
+ 369 002e 66D0     		beq	.L31
+ 370              	.L32:
+ 145:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
+ 146:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[2][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_3);//获取当前的捕获值.
+ 147:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 148:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
+ 149:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 150:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ 151:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[2][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_3);//获取当前的捕获值.
+ 152:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_3); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 153:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++; 
+ 154:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
+ 155:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 156:USER/BSP/Src/bsp_TIMIN.c **** 
+ 157:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 4 caputure interrupt
+ 158:USER/BSP/Src/bsp_TIMIN.c ****         switch(capture_Cnt[3]){
+ 371              		.loc 1 158 9 is_stmt 1 view .LVU116
+ 372              		.loc 1 158 27 is_stmt 0 view .LVU117
+ 373 0030 4E4B     		ldr	r3, .L40+4
+ 374 0032 DB68     		ldr	r3, [r3, #12]
+ 375              		.loc 1 158 9 view .LVU118
+ 376 0034 012B     		cmp	r3, #1
+ 377 0036 72D0     		beq	.L33
+ 378 0038 022B     		cmp	r3, #2
+ 379 003a 00F08580 		beq	.L34
+ 380              	.L22:
+ 159:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
+ 160:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[3][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_4);//获取当前的捕获值.
+ 161:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 162:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 12
+
+
+ 163:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 164:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ 165:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[3][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_4);//获取当前的捕获值.
+ 166:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_4); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 167:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
+ 168:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
+ 169:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 170:USER/BSP/Src/bsp_TIMIN.c **** 	
+ 171:USER/BSP/Src/bsp_TIMIN.c **** 	}
+ 172:USER/BSP/Src/bsp_TIMIN.c **** 	
+ 173:USER/BSP/Src/bsp_TIMIN.c **** }
+ 381              		.loc 1 173 1 view .LVU119
+ 382 003e 10BD     		pop	{r4, pc}
+ 383              	.LVL6:
+ 384              	.L24:
+ 118:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 385              		.loc 1 118 5 is_stmt 1 view .LVU120
+ 118:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 386              		.loc 1 118 25 is_stmt 0 view .LVU121
+ 387 0040 4B4C     		ldr	r4, .L40+8
+ 388 0042 0021     		movs	r1, #0
+ 389 0044 2046     		mov	r0, r4
+ 390              	.LVL7:
+ 118:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 391              		.loc 1 118 25 view .LVU122
+ 392 0046 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 393              	.LVL8:
+ 118:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 394              		.loc 1 118 23 view .LVU123
+ 395 004a 4A4B     		ldr	r3, .L40+12
+ 396 004c 1860     		str	r0, [r3]
+ 119:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
+ 397              		.loc 1 119 5 is_stmt 1 view .LVU124
+ 119:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
+ 398              		.loc 1 119 5 view .LVU125
+ 399 004e 2368     		ldr	r3, [r4]
+ 400 0050 1A6A     		ldr	r2, [r3, #32]
+ 401 0052 22F00A02 		bic	r2, r2, #10
+ 402 0056 1A62     		str	r2, [r3, #32]
+ 119:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
+ 403              		.loc 1 119 5 view .LVU126
+ 404 0058 1A6A     		ldr	r2, [r3, #32]
+ 405 005a 42F00202 		orr	r2, r2, #2
+ 406 005e 1A62     		str	r2, [r3, #32]
+ 119:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
+ 407              		.loc 1 119 5 view .LVU127
+ 120:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 408              		.loc 1 120 5 view .LVU128
+ 120:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 409              		.loc 1 120 16 is_stmt 0 view .LVU129
+ 410 0060 424A     		ldr	r2, .L40+4
+ 411 0062 1368     		ldr	r3, [r2]
+ 120:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 412              		.loc 1 120 19 view .LVU130
+ 413 0064 0133     		adds	r3, r3, #1
+ 414 0066 1360     		str	r3, [r2]
+ 121:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 13
+
+
+ 415              		.loc 1 121 5 is_stmt 1 view .LVU131
+ 416 0068 D6E7     		b	.L26
+ 417              	.LVL9:
+ 418              	.L25:
+ 123:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
+ 419              		.loc 1 123 5 view .LVU132
+ 123:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
+ 420              		.loc 1 123 25 is_stmt 0 view .LVU133
+ 421 006a 414C     		ldr	r4, .L40+8
+ 422 006c 0021     		movs	r1, #0
+ 423 006e 2046     		mov	r0, r4
+ 424              	.LVL10:
+ 123:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
+ 425              		.loc 1 123 25 view .LVU134
+ 426 0070 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 427              	.LVL11:
+ 123:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
+ 428              		.loc 1 123 23 view .LVU135
+ 429 0074 3F4B     		ldr	r3, .L40+12
+ 430 0076 5860     		str	r0, [r3, #4]
+ 124:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++; 
+ 431              		.loc 1 124 5 is_stmt 1 view .LVU136
+ 432 0078 0021     		movs	r1, #0
+ 433 007a 2046     		mov	r0, r4
+ 434 007c FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
+ 435              	.LVL12:
+ 125:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
+ 436              		.loc 1 125 5 view .LVU137
+ 125:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
+ 437              		.loc 1 125 16 is_stmt 0 view .LVU138
+ 438 0080 3A4A     		ldr	r2, .L40+4
+ 439 0082 1368     		ldr	r3, [r2]
+ 125:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
+ 440              		.loc 1 125 19 view .LVU139
+ 441 0084 0133     		adds	r3, r3, #1
+ 442 0086 1360     		str	r3, [r2]
+ 126:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 443              		.loc 1 126 5 is_stmt 1 view .LVU140
+ 444 0088 C6E7     		b	.L26
+ 445              	.L27:
+ 132:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 446              		.loc 1 132 5 view .LVU141
+ 132:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 447              		.loc 1 132 25 is_stmt 0 view .LVU142
+ 448 008a 394C     		ldr	r4, .L40+8
+ 449 008c 0421     		movs	r1, #4
+ 450 008e 2046     		mov	r0, r4
+ 451 0090 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 452              	.LVL13:
+ 132:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 453              		.loc 1 132 23 view .LVU143
+ 454 0094 374B     		ldr	r3, .L40+12
+ 455 0096 9860     		str	r0, [r3, #8]
+ 133:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
+ 456              		.loc 1 133 5 is_stmt 1 view .LVU144
+ 133:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
+ 457              		.loc 1 133 5 view .LVU145
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 14
+
+
+ 458 0098 2368     		ldr	r3, [r4]
+ 459 009a 1A6A     		ldr	r2, [r3, #32]
+ 460 009c 22F0A002 		bic	r2, r2, #160
+ 461 00a0 1A62     		str	r2, [r3, #32]
+ 133:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
+ 462              		.loc 1 133 5 view .LVU146
+ 463 00a2 1A6A     		ldr	r2, [r3, #32]
+ 464 00a4 42F02002 		orr	r2, r2, #32
+ 465 00a8 1A62     		str	r2, [r3, #32]
+ 133:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
+ 466              		.loc 1 133 5 view .LVU147
+ 134:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 467              		.loc 1 134 5 view .LVU148
+ 134:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 468              		.loc 1 134 16 is_stmt 0 view .LVU149
+ 469 00aa 304A     		ldr	r2, .L40+4
+ 470 00ac 5368     		ldr	r3, [r2, #4]
+ 134:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 471              		.loc 1 134 19 view .LVU150
+ 472 00ae 0133     		adds	r3, r3, #1
+ 473 00b0 5360     		str	r3, [r2, #4]
+ 135:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ 474              		.loc 1 135 5 is_stmt 1 view .LVU151
+ 475 00b2 B7E7     		b	.L29
+ 476              	.L28:
+ 137:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_2); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 477              		.loc 1 137 5 view .LVU152
+ 137:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_2); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 478              		.loc 1 137 25 is_stmt 0 view .LVU153
+ 479 00b4 2E4C     		ldr	r4, .L40+8
+ 480 00b6 0421     		movs	r1, #4
+ 481 00b8 2046     		mov	r0, r4
+ 482 00ba FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 483              	.LVL14:
+ 137:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_2); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 484              		.loc 1 137 23 view .LVU154
+ 485 00be 2D4B     		ldr	r3, .L40+12
+ 486 00c0 D860     		str	r0, [r3, #12]
+ 138:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++; 
+ 487              		.loc 1 138 5 is_stmt 1 view .LVU155
+ 488 00c2 0421     		movs	r1, #4
+ 489 00c4 2046     		mov	r0, r4
+ 490 00c6 FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
+ 491              	.LVL15:
  139:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 140:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 141:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[2][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
- 142:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 143:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++; 
- 144:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
- 145:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 146:USER/BSP/Src/bsp_TIMIN.c **** 
- 147:USER/BSP/Src/bsp_TIMIN.c ****         //Channel 4 caputure interrupt
- 148:USER/BSP/Src/bsp_TIMIN.c ****         switch(capture_Cnt[3]){
- 318              		.loc 1 148 9 is_stmt 1 view .LVU93
- 319              		.loc 1 148 27 is_stmt 0 view .LVU94
- 320 0030 4E4B     		ldr	r3, .L35+4
- 321 0032 DB68     		ldr	r3, [r3, #12]
- 322              		.loc 1 148 9 view .LVU95
- 323 0034 012B     		cmp	r3, #1
- 324 0036 72D0     		beq	.L28
- 325 0038 022B     		cmp	r3, #2
- 326 003a 00F08580 		beq	.L29
- 327              	.L17:
- 149:USER/BSP/Src/bsp_TIMIN.c **** 			case 1:
- 150:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[3][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
- 151:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 152:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
- 153:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 154:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 155:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Buf[3][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
- 156:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 157:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
- 158:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
- 159:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 160:USER/BSP/Src/bsp_TIMIN.c **** 	
- 161:USER/BSP/Src/bsp_TIMIN.c **** 	}
- 162:USER/BSP/Src/bsp_TIMIN.c **** 	
- 163:USER/BSP/Src/bsp_TIMIN.c **** }
- 328              		.loc 1 163 1 view .LVU96
- 329 003e 10BD     		pop	{r4, pc}
- 330              	.LVL6:
- 331              	.L19:
- 108:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 332              		.loc 1 108 5 is_stmt 1 view .LVU97
- 108:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 333              		.loc 1 108 25 is_stmt 0 view .LVU98
- 334 0040 4B4C     		ldr	r4, .L35+8
- 335 0042 0021     		movs	r1, #0
- 336 0044 2046     		mov	r0, r4
- 337              	.LVL7:
- 108:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 338              		.loc 1 108 25 view .LVU99
- 339 0046 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 340              	.LVL8:
- 108:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 341              		.loc 1 108 23 view .LVU100
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 11
+ 492              		.loc 1 139 5 view .LVU156
+ 139:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 493              		.loc 1 139 16 is_stmt 0 view .LVU157
+ 494 00ca 284A     		ldr	r2, .L40+4
+ 495 00cc 5368     		ldr	r3, [r2, #4]
+ 139:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 496              		.loc 1 139 19 view .LVU158
+ 497 00ce 0133     		adds	r3, r3, #1
+ 498 00d0 5360     		str	r3, [r2, #4]
+ 140:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 499              		.loc 1 140 5 is_stmt 1 view .LVU159
+ 500 00d2 A7E7     		b	.L29
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 15
 
 
- 342 004a 4A4B     		ldr	r3, .L35+12
- 343 004c 1860     		str	r0, [r3]
- 109:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
- 344              		.loc 1 109 5 is_stmt 1 view .LVU101
- 109:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
- 345              		.loc 1 109 5 view .LVU102
- 346 004e 2368     		ldr	r3, [r4]
- 347 0050 1A6A     		ldr	r2, [r3, #32]
- 348 0052 22F00A02 		bic	r2, r2, #10
- 349 0056 1A62     		str	r2, [r3, #32]
- 109:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
- 350              		.loc 1 109 5 view .LVU103
- 351 0058 1A6A     		ldr	r2, [r3, #32]
- 352 005a 42F00202 		orr	r2, r2, #2
- 353 005e 1A62     		str	r2, [r3, #32]
- 109:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++;
- 354              		.loc 1 109 5 view .LVU104
- 110:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 355              		.loc 1 110 5 view .LVU105
- 110:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 356              		.loc 1 110 16 is_stmt 0 view .LVU106
- 357 0060 424A     		ldr	r2, .L35+4
- 358 0062 1368     		ldr	r3, [r2]
- 110:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 359              		.loc 1 110 19 view .LVU107
- 360 0064 0133     		adds	r3, r3, #1
- 361 0066 1360     		str	r3, [r2]
- 111:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 362              		.loc 1 111 5 is_stmt 1 view .LVU108
- 363 0068 D6E7     		b	.L21
- 364              	.LVL9:
- 365              	.L20:
- 113:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
- 366              		.loc 1 113 5 view .LVU109
- 113:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
- 367              		.loc 1 113 25 is_stmt 0 view .LVU110
- 368 006a 414C     		ldr	r4, .L35+8
- 369 006c 0021     		movs	r1, #0
- 370 006e 2046     		mov	r0, r4
- 371              	.LVL10:
- 113:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
- 372              		.loc 1 113 25 view .LVU111
- 373 0070 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 374              	.LVL11:
- 113:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
- 375              		.loc 1 113 23 view .LVU112
- 376 0074 3F4B     		ldr	r3, .L35+12
- 377 0076 5860     		str	r0, [r3, #4]
- 114:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[0]++; 
- 378              		.loc 1 114 5 is_stmt 1 view .LVU113
- 379 0078 0021     		movs	r1, #0
- 380 007a 2046     		mov	r0, r4
- 381 007c FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
- 382              	.LVL12:
- 115:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
- 383              		.loc 1 115 5 view .LVU114
- 115:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 12
+ 501              	.L30:
+ 146:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 502              		.loc 1 146 5 view .LVU160
+ 146:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 503              		.loc 1 146 25 is_stmt 0 view .LVU161
+ 504 00d4 264C     		ldr	r4, .L40+8
+ 505 00d6 0821     		movs	r1, #8
+ 506 00d8 2046     		mov	r0, r4
+ 507 00da FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 508              	.LVL16:
+ 146:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 509              		.loc 1 146 23 view .LVU162
+ 510 00de 254B     		ldr	r3, .L40+12
+ 511 00e0 1861     		str	r0, [r3, #16]
+ 147:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
+ 512              		.loc 1 147 5 is_stmt 1 view .LVU163
+ 147:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
+ 513              		.loc 1 147 5 view .LVU164
+ 514 00e2 2368     		ldr	r3, [r4]
+ 515 00e4 1A6A     		ldr	r2, [r3, #32]
+ 516 00e6 22F42062 		bic	r2, r2, #2560
+ 517 00ea 1A62     		str	r2, [r3, #32]
+ 147:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
+ 518              		.loc 1 147 5 view .LVU165
+ 519 00ec 1A6A     		ldr	r2, [r3, #32]
+ 520 00ee 42F40072 		orr	r2, r2, #512
+ 521 00f2 1A62     		str	r2, [r3, #32]
+ 147:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
+ 522              		.loc 1 147 5 view .LVU166
+ 148:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 523              		.loc 1 148 5 view .LVU167
+ 148:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 524              		.loc 1 148 16 is_stmt 0 view .LVU168
+ 525 00f4 1D4A     		ldr	r2, .L40+4
+ 526 00f6 9368     		ldr	r3, [r2, #8]
+ 148:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 527              		.loc 1 148 19 view .LVU169
+ 528 00f8 0133     		adds	r3, r3, #1
+ 529 00fa 9360     		str	r3, [r2, #8]
+ 149:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ 530              		.loc 1 149 5 is_stmt 1 view .LVU170
+ 531 00fc 98E7     		b	.L32
+ 532              	.L31:
+ 151:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_3); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 533              		.loc 1 151 5 view .LVU171
+ 151:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_3); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 534              		.loc 1 151 25 is_stmt 0 view .LVU172
+ 535 00fe 1C4C     		ldr	r4, .L40+8
+ 536 0100 0821     		movs	r1, #8
+ 537 0102 2046     		mov	r0, r4
+ 538 0104 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 539              	.LVL17:
+ 151:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_3); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 540              		.loc 1 151 23 view .LVU173
+ 541 0108 1A4B     		ldr	r3, .L40+12
+ 542 010a 5861     		str	r0, [r3, #20]
+ 152:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++; 
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 16
 
 
- 384              		.loc 1 115 16 is_stmt 0 view .LVU115
- 385 0080 3A4A     		ldr	r2, .L35+4
- 386 0082 1368     		ldr	r3, [r2]
- 115:USER/BSP/Src/bsp_TIMIN.c **** 				break; 
- 387              		.loc 1 115 19 view .LVU116
- 388 0084 0133     		adds	r3, r3, #1
- 389 0086 1360     		str	r3, [r2]
- 116:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 390              		.loc 1 116 5 is_stmt 1 view .LVU117
- 391 0088 C6E7     		b	.L21
- 392              	.L22:
- 122:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 393              		.loc 1 122 5 view .LVU118
- 122:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 394              		.loc 1 122 25 is_stmt 0 view .LVU119
- 395 008a 394C     		ldr	r4, .L35+8
- 396 008c 0421     		movs	r1, #4
- 397 008e 2046     		mov	r0, r4
- 398 0090 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 399              	.LVL13:
- 122:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 400              		.loc 1 122 23 view .LVU120
- 401 0094 374B     		ldr	r3, .L35+12
- 402 0096 9860     		str	r0, [r3, #8]
- 123:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
- 403              		.loc 1 123 5 is_stmt 1 view .LVU121
- 123:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
- 404              		.loc 1 123 5 view .LVU122
- 405 0098 2368     		ldr	r3, [r4]
- 406 009a 1A6A     		ldr	r2, [r3, #32]
- 407 009c 22F0A002 		bic	r2, r2, #160
- 408 00a0 1A62     		str	r2, [r3, #32]
- 123:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
- 409              		.loc 1 123 5 view .LVU123
- 410 00a2 1A6A     		ldr	r2, [r3, #32]
- 411 00a4 42F02002 		orr	r2, r2, #32
- 412 00a8 1A62     		str	r2, [r3, #32]
- 123:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++;
- 413              		.loc 1 123 5 view .LVU124
- 124:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 414              		.loc 1 124 5 view .LVU125
- 124:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 415              		.loc 1 124 16 is_stmt 0 view .LVU126
- 416 00aa 304A     		ldr	r2, .L35+4
- 417 00ac 5368     		ldr	r3, [r2, #4]
- 124:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 418              		.loc 1 124 19 view .LVU127
- 419 00ae 0133     		adds	r3, r3, #1
- 420 00b0 5360     		str	r3, [r2, #4]
- 125:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 421              		.loc 1 125 5 is_stmt 1 view .LVU128
- 422 00b2 B7E7     		b	.L24
- 423              	.L23:
- 127:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 424              		.loc 1 127 5 view .LVU129
- 127:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 425              		.loc 1 127 25 is_stmt 0 view .LVU130
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 13
+ 543              		.loc 1 152 5 is_stmt 1 view .LVU174
+ 544 010c 0821     		movs	r1, #8
+ 545 010e 2046     		mov	r0, r4
+ 546 0110 FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
+ 547              	.LVL18:
+ 153:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
+ 548              		.loc 1 153 5 view .LVU175
+ 153:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
+ 549              		.loc 1 153 16 is_stmt 0 view .LVU176
+ 550 0114 154A     		ldr	r2, .L40+4
+ 551 0116 9368     		ldr	r3, [r2, #8]
+ 153:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
+ 552              		.loc 1 153 19 view .LVU177
+ 553 0118 0133     		adds	r3, r3, #1
+ 554 011a 9360     		str	r3, [r2, #8]
+ 154:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 555              		.loc 1 154 5 is_stmt 1 view .LVU178
+ 556 011c 88E7     		b	.L32
+ 557              	.L33:
+ 160:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 558              		.loc 1 160 5 view .LVU179
+ 160:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 559              		.loc 1 160 25 is_stmt 0 view .LVU180
+ 560 011e 144C     		ldr	r4, .L40+8
+ 561 0120 0C21     		movs	r1, #12
+ 562 0122 2046     		mov	r0, r4
+ 563 0124 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 564              	.LVL19:
+ 160:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_FALLING);  //设置为下降�
+ 565              		.loc 1 160 23 view .LVU181
+ 566 0128 124B     		ldr	r3, .L40+12
+ 567 012a 9861     		str	r0, [r3, #24]
+ 161:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
+ 568              		.loc 1 161 5 is_stmt 1 view .LVU182
+ 161:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
+ 569              		.loc 1 161 5 view .LVU183
+ 570 012c 2368     		ldr	r3, [r4]
+ 571 012e 1A6A     		ldr	r2, [r3, #32]
+ 572 0130 22F42042 		bic	r2, r2, #40960
+ 573 0134 1A62     		str	r2, [r3, #32]
+ 161:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
+ 574              		.loc 1 161 5 view .LVU184
+ 575 0136 1A6A     		ldr	r2, [r3, #32]
+ 576 0138 42F40052 		orr	r2, r2, #8192
+ 577 013c 1A62     		str	r2, [r3, #32]
+ 161:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
+ 578              		.loc 1 161 5 view .LVU185
+ 162:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 579              		.loc 1 162 5 view .LVU186
+ 162:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 580              		.loc 1 162 16 is_stmt 0 view .LVU187
+ 581 013e 0B4A     		ldr	r2, .L40+4
+ 582 0140 D368     		ldr	r3, [r2, #12]
+ 162:USER/BSP/Src/bsp_TIMIN.c **** 				break;
+ 583              		.loc 1 162 19 view .LVU188
+ 584 0142 0133     		adds	r3, r3, #1
+ 585 0144 D360     		str	r3, [r2, #12]
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 17
 
 
- 426 00b4 2E4C     		ldr	r4, .L35+8
- 427 00b6 0021     		movs	r1, #0
- 428 00b8 2046     		mov	r0, r4
- 429 00ba FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 430              	.LVL14:
- 127:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 431              		.loc 1 127 23 view .LVU131
- 432 00be 2D4B     		ldr	r3, .L35+12
- 433 00c0 D860     		str	r0, [r3, #12]
- 128:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[1]++; 
- 434              		.loc 1 128 5 is_stmt 1 view .LVU132
- 435 00c2 0021     		movs	r1, #0
- 436 00c4 2046     		mov	r0, r4
- 437 00c6 FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
- 438              	.LVL15:
- 129:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 439              		.loc 1 129 5 view .LVU133
- 129:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 440              		.loc 1 129 16 is_stmt 0 view .LVU134
- 441 00ca 284A     		ldr	r2, .L35+4
- 442 00cc 5368     		ldr	r3, [r2, #4]
- 129:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 443              		.loc 1 129 19 view .LVU135
- 444 00ce 0133     		adds	r3, r3, #1
- 445 00d0 5360     		str	r3, [r2, #4]
- 130:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 446              		.loc 1 130 5 is_stmt 1 view .LVU136
- 447 00d2 A7E7     		b	.L24
- 448              	.L25:
- 136:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 449              		.loc 1 136 5 view .LVU137
- 136:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 450              		.loc 1 136 25 is_stmt 0 view .LVU138
- 451 00d4 264C     		ldr	r4, .L35+8
- 452 00d6 0021     		movs	r1, #0
- 453 00d8 2046     		mov	r0, r4
- 454 00da FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 455              	.LVL16:
- 136:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 456              		.loc 1 136 23 view .LVU139
- 457 00de 254B     		ldr	r3, .L35+12
- 458 00e0 1861     		str	r0, [r3, #16]
- 137:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
- 459              		.loc 1 137 5 is_stmt 1 view .LVU140
- 137:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
- 460              		.loc 1 137 5 view .LVU141
- 461 00e2 2368     		ldr	r3, [r4]
- 462 00e4 1A6A     		ldr	r2, [r3, #32]
- 463 00e6 22F00A02 		bic	r2, r2, #10
- 464 00ea 1A62     		str	r2, [r3, #32]
- 137:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
- 465              		.loc 1 137 5 view .LVU142
- 466 00ec 1A6A     		ldr	r2, [r3, #32]
- 467 00ee 42F00202 		orr	r2, r2, #2
- 468 00f2 1A62     		str	r2, [r3, #32]
- 137:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++;
- 469              		.loc 1 137 5 view .LVU143
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 14
+ 163:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
+ 586              		.loc 1 163 5 is_stmt 1 view .LVU189
+ 587 0146 7AE7     		b	.L22
+ 588              	.L34:
+ 165:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_4); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 589              		.loc 1 165 5 view .LVU190
+ 165:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_4); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 590              		.loc 1 165 25 is_stmt 0 view .LVU191
+ 591 0148 094C     		ldr	r4, .L40+8
+ 592 014a 0C21     		movs	r1, #12
+ 593 014c 2046     		mov	r0, r4
+ 594 014e FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
+ 595              	.LVL20:
+ 165:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_4); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+ 596              		.loc 1 165 23 view .LVU192
+ 597 0152 084B     		ldr	r3, .L40+12
+ 598 0154 D861     		str	r0, [r3, #28]
+ 166:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
+ 599              		.loc 1 166 5 is_stmt 1 view .LVU193
+ 600 0156 0C21     		movs	r1, #12
+ 601 0158 2046     		mov	r0, r4
+ 602 015a FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
+ 603              	.LVL21:
+ 167:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
+ 604              		.loc 1 167 5 view .LVU194
+ 167:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
+ 605              		.loc 1 167 16 is_stmt 0 view .LVU195
+ 606 015e 034A     		ldr	r2, .L40+4
+ 607 0160 D368     		ldr	r3, [r2, #12]
+ 167:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
+ 608              		.loc 1 167 19 view .LVU196
+ 609 0162 0133     		adds	r3, r3, #1
+ 610 0164 D360     		str	r3, [r2, #12]
+ 168:USER/BSP/Src/bsp_TIMIN.c **** 		}
+ 611              		.loc 1 168 5 is_stmt 1 view .LVU197
+ 612              		.loc 1 173 1 is_stmt 0 view .LVU198
+ 613 0166 6AE7     		b	.L22
+ 614              	.L41:
+ 615              		.align	2
+ 616              	.L40:
+ 617 0168 00000140 		.word	1073807360
+ 618 016c 00000000 		.word	capture_Cnt
+ 619 0170 00000000 		.word	htim1
+ 620 0174 00000000 		.word	capture_Buf
+ 621              		.cfi_endproc
+ 622              	.LFE134:
+ 624              		.text
+ 625              	.Letext0:
+ 626              		.file 2 "/Applications/ARM/arm-none-eabi/include/machine/_default_types.h"
+ 627              		.file 3 "/Applications/ARM/arm-none-eabi/include/sys/_stdint.h"
+ 628              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 629              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 630              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 631              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 632              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 633              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 634              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 18
 
 
- 138:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 470              		.loc 1 138 5 view .LVU144
- 138:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 471              		.loc 1 138 16 is_stmt 0 view .LVU145
- 472 00f4 1D4A     		ldr	r2, .L35+4
- 473 00f6 9368     		ldr	r3, [r2, #8]
- 138:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 474              		.loc 1 138 19 view .LVU146
- 475 00f8 0133     		adds	r3, r3, #1
- 476 00fa 9360     		str	r3, [r2, #8]
- 139:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 477              		.loc 1 139 5 is_stmt 1 view .LVU147
- 478 00fc 98E7     		b	.L27
- 479              	.L26:
- 141:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 480              		.loc 1 141 5 view .LVU148
- 141:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 481              		.loc 1 141 25 is_stmt 0 view .LVU149
- 482 00fe 1C4C     		ldr	r4, .L35+8
- 483 0100 0021     		movs	r1, #0
- 484 0102 2046     		mov	r0, r4
- 485 0104 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 486              	.LVL17:
- 141:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 487              		.loc 1 141 23 view .LVU150
- 488 0108 1A4B     		ldr	r3, .L35+12
- 489 010a 5861     		str	r0, [r3, #20]
- 142:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[2]++; 
- 490              		.loc 1 142 5 is_stmt 1 view .LVU151
- 491 010c 0021     		movs	r1, #0
- 492 010e 2046     		mov	r0, r4
- 493 0110 FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
- 494              	.LVL18:
- 143:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
- 495              		.loc 1 143 5 view .LVU152
- 143:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
- 496              		.loc 1 143 16 is_stmt 0 view .LVU153
- 497 0114 154A     		ldr	r2, .L35+4
- 498 0116 9368     		ldr	r3, [r2, #8]
- 143:USER/BSP/Src/bsp_TIMIN.c **** 				break;   
- 499              		.loc 1 143 19 view .LVU154
- 500 0118 0133     		adds	r3, r3, #1
- 501 011a 9360     		str	r3, [r2, #8]
- 144:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 502              		.loc 1 144 5 is_stmt 1 view .LVU155
- 503 011c 88E7     		b	.L27
- 504              	.L28:
- 150:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 505              		.loc 1 150 5 view .LVU156
- 150:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
- 506              		.loc 1 150 25 is_stmt 0 view .LVU157
- 507 011e 144C     		ldr	r4, .L35+8
- 508 0120 0021     		movs	r1, #0
- 509 0122 2046     		mov	r0, r4
- 510 0124 FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 511              	.LVL19:
- 150:USER/BSP/Src/bsp_TIMIN.c **** 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降�
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 15
-
-
- 512              		.loc 1 150 23 view .LVU158
- 513 0128 124B     		ldr	r3, .L35+12
- 514 012a 9861     		str	r0, [r3, #24]
- 151:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
- 515              		.loc 1 151 5 is_stmt 1 view .LVU159
- 151:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
- 516              		.loc 1 151 5 view .LVU160
- 517 012c 2368     		ldr	r3, [r4]
- 518 012e 1A6A     		ldr	r2, [r3, #32]
- 519 0130 22F00A02 		bic	r2, r2, #10
- 520 0134 1A62     		str	r2, [r3, #32]
- 151:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
- 521              		.loc 1 151 5 view .LVU161
- 522 0136 1A6A     		ldr	r2, [r3, #32]
- 523 0138 42F00202 		orr	r2, r2, #2
- 524 013c 1A62     		str	r2, [r3, #32]
- 151:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
- 525              		.loc 1 151 5 view .LVU162
- 152:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 526              		.loc 1 152 5 view .LVU163
- 152:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 527              		.loc 1 152 16 is_stmt 0 view .LVU164
- 528 013e 0B4A     		ldr	r2, .L35+4
- 529 0140 D368     		ldr	r3, [r2, #12]
- 152:USER/BSP/Src/bsp_TIMIN.c **** 				break;
- 530              		.loc 1 152 19 view .LVU165
- 531 0142 0133     		adds	r3, r3, #1
- 532 0144 D360     		str	r3, [r2, #12]
- 153:USER/BSP/Src/bsp_TIMIN.c **** 			case 2:
- 533              		.loc 1 153 5 is_stmt 1 view .LVU166
- 534 0146 7AE7     		b	.L17
- 535              	.L29:
- 155:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 536              		.loc 1 155 5 view .LVU167
- 155:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 537              		.loc 1 155 25 is_stmt 0 view .LVU168
- 538 0148 094C     		ldr	r4, .L35+8
- 539 014a 0021     		movs	r1, #0
- 540 014c 2046     		mov	r0, r4
- 541 014e FFF7FEFF 		bl	HAL_TIM_ReadCapturedValue
- 542              	.LVL20:
- 155:USER/BSP/Src/bsp_TIMIN.c **** 				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
- 543              		.loc 1 155 23 view .LVU169
- 544 0152 084B     		ldr	r3, .L35+12
- 545 0154 D861     		str	r0, [r3, #28]
- 156:USER/BSP/Src/bsp_TIMIN.c **** 				capture_Cnt[3]++;
- 546              		.loc 1 156 5 is_stmt 1 view .LVU170
- 547 0156 0021     		movs	r1, #0
- 548 0158 2046     		mov	r0, r4
- 549 015a FFF7FEFF 		bl	HAL_TIM_IC_Stop_IT
- 550              	.LVL21:
- 157:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
- 551              		.loc 1 157 5 view .LVU171
- 157:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
- 552              		.loc 1 157 16 is_stmt 0 view .LVU172
- 553 015e 034A     		ldr	r2, .L35+4
- 554 0160 D368     		ldr	r3, [r2, #12]
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 16
-
-
- 157:USER/BSP/Src/bsp_TIMIN.c **** 				break;    
- 555              		.loc 1 157 19 view .LVU173
- 556 0162 0133     		adds	r3, r3, #1
- 557 0164 D360     		str	r3, [r2, #12]
- 158:USER/BSP/Src/bsp_TIMIN.c **** 		}
- 558              		.loc 1 158 5 is_stmt 1 view .LVU174
- 559              		.loc 1 163 1 is_stmt 0 view .LVU175
- 560 0166 6AE7     		b	.L17
- 561              	.L36:
- 562              		.align	2
- 563              	.L35:
- 564 0168 00000140 		.word	1073807360
- 565 016c 00000000 		.word	capture_Cnt
- 566 0170 00000000 		.word	htim1
- 567 0174 00000000 		.word	capture_Buf
- 568              		.cfi_endproc
- 569              	.LFE134:
- 571              		.text
- 572              	.Letext0:
- 573              		.file 2 "/Applications/ARM/arm-none-eabi/include/machine/_default_types.h"
- 574              		.file 3 "/Applications/ARM/arm-none-eabi/include/sys/_stdint.h"
- 575              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
- 576              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 577              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
- 578              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 579              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 580              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
- 581              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 582              		.file 11 "/Applications/ARM/lib/gcc/arm-none-eabi/9.3.1/include/stddef.h"
- 583              		.file 12 "/Applications/ARM/arm-none-eabi/include/sys/_types.h"
- 584              		.file 13 "/Applications/ARM/arm-none-eabi/include/sys/reent.h"
- 585              		.file 14 "/Applications/ARM/arm-none-eabi/include/sys/lock.h"
-ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s 			page 17
+ 635              		.file 11 "/Applications/ARM/lib/gcc/arm-none-eabi/9.3.1/include/stddef.h"
+ 636              		.file 12 "/Applications/ARM/arm-none-eabi/include/sys/_types.h"
+ 637              		.file 13 "/Applications/ARM/arm-none-eabi/include/sys/reent.h"
+ 638              		.file 14 "/Applications/ARM/arm-none-eabi/include/sys/lock.h"
+ARM GAS  /var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s 			page 19
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 bsp_TIMIN.c
-/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s:18     .text.bsp_TIMIN_C:0000000000000000 $t
-/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s:26     .text.bsp_TIMIN_C:0000000000000000 bsp_TIMIN_C
-/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s:250    .text.bsp_TIMIN_C:00000000000000f8 $d
-/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s:258    .text.HAL_TIM_IC_CaptureCallback:0000000000000000 $t
-/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s:265    .text.HAL_TIM_IC_CaptureCallback:0000000000000000 HAL_TIM_IC_CaptureCallback
-/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccva4K16.s:564    .text.HAL_TIM_IC_CaptureCallback:0000000000000168 $d
+/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s:18     .text.bsp_TIMIN_C:0000000000000000 $t
+/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s:26     .text.bsp_TIMIN_C:0000000000000000 bsp_TIMIN_C
+/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s:303    .text.bsp_TIMIN_C:000000000000012c $d
+/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s:311    .text.HAL_TIM_IC_CaptureCallback:0000000000000000 $t
+/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s:318    .text.HAL_TIM_IC_CaptureCallback:0000000000000000 HAL_TIM_IC_CaptureCallback
+/var/folders/cb/0rfcg7_d4zbdkgdchwlcykcc0000gn/T//ccfztQpO.s:617    .text.HAL_TIM_IC_CaptureCallback:0000000000000168 $d
 
 UNDEFINED SYMBOLS
 HAL_TIM_IC_Start_IT

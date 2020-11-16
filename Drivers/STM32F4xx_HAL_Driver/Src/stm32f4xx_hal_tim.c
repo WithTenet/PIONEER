@@ -3199,8 +3199,6 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
       }
     }
   }
-
-  
   /* Capture compare 2 event */
   if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC2) != RESET)
   {

@@ -10,7 +10,8 @@
             "executable": "build/PIONEER.elf",
             "request": "launch",
             "type": "cortex-debug",
-            "servertype": "stutil"
+            "servertype": "stutil",
+            "svdFile": "STM32F4_svd_V1.2/STM32F407.svd",
         }
     ]
 }

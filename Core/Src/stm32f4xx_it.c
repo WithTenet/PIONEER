@@ -208,7 +208,6 @@ void RCC_IRQHandler(void)
 
   /* USER CODE END RCC_IRQn 0 */
   /* USER CODE BEGIN RCC_IRQn 1 */
-
   /* USER CODE END RCC_IRQn 1 */
 }
 

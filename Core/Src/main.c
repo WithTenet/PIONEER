@@ -54,6 +54,7 @@ UART_HandleTypeDef huart3;
 unsigned int capture_Buf[4][2]={{0,0},{0,0},{0,0},{0,0}}; //存放计数值
 unsigned int capture_Cnt[4]={0,0,0,0};//状态标志位
 unsigned int high_time[4]={0,0,0,0}; //高电平时间
+char buf[4][20];
 
 /* USER CODE END PV */
 
@@ -111,11 +112,11 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_TIM2_Init();
+  
+  /* USER CODE BEGIN 2 */
   bsp_OLED_Init();
   bsp_OLED_ON();
   bsp_OLED_CLR();
-  unsigned char buf[4][20];
-  /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
@@ -124,21 +125,57 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-   
+
     /* USER CODE BEGIN 3 */
     bsp_TIMIN_C();
-    sprintf(buf[0],"show num:%d",high_time[0]);
+    sprintf(buf[0],"ch1 high time:%d",high_time[0]);
 	  bsp_OLED_ShowStr(0, 0,buf[0], 1);//显示字符串
-    sprintf(buf[1],"show num:%d",high_time[1]);
+   /* sprintf(buf[1],"ch2 high time:%d",high_time[1]);
 	  bsp_OLED_ShowStr(0, 2,buf[1], 1);//显示字符串
-    sprintf(buf[2],"show num:%d",high_time[2]);
+    sprintf(buf[2],"ch3 high time:%d",high_time[2]);
 	  bsp_OLED_ShowStr(0, 4,buf[2], 1);//显示字符串
-    sprintf(buf[3],"show num:%d",high_time[3]);
+    sprintf(buf[3],"ch4 high time:%d",high_time[3]);
 	  bsp_OLED_ShowStr(0, 6,buf[3], 1);//显示字符串
+    */
   }
   /* USER CODE END 3 */
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @brief 外设数据更改区
+ * 
+ */
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -269,9 +306,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 83;
+  htim1.Init.Prescaler = 167;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 2500;
+  htim1.Init.Period =0xffff;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;

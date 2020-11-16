@@ -26,7 +26,11 @@ void bsp_TIMIN_C(void)
             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
 		    break;
 	    case 3:
-		    high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
+		    if(capture_Buf[0][1]>capture_Buf[0][0])
+		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
+			else
+				high_time[0] = capture_Buf[0][0]- capture_Buf[0][1];
+				capture_Buf[0][0]=capture_Buf[0][1]=0;
 		    capture_Cnt[0] = 0;  //清空标志位
 			break;
     }
@@ -40,7 +44,9 @@ void bsp_TIMIN_C(void)
             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
 		    break;
 	    case 3:
-		    high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
+		    if(capture_Buf[1][1]>capture_Buf[1][0])
+		   		high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];    //高电平时间
+			capture_Buf[1][0]=capture_Buf[1][1]=0;
 		    capture_Cnt[1] = 0;  //清空标志位
 			break;
     }
@@ -54,7 +60,9 @@ void bsp_TIMIN_C(void)
             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
 		    break;
 	    case 3:
-		    high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
+			if(capture_Buf[2][1]>capture_Buf[2][0])
+		   		high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];    //高电平时间
+			capture_Buf[2][1]=capture_Buf[2][0]=0;
 		    capture_Cnt[2] = 0;  //清空标志位
 			break;
     }
@@ -68,7 +76,9 @@ void bsp_TIMIN_C(void)
             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
 		    break;
 	    case 3:
-		    high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
+		    if(capture_Buf[3][1]>capture_Buf[3][0])
+		   		high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];    //高电平时间
+			capture_Buf[3][1]=capture_Buf[3][0]=0;
 		    capture_Cnt[3] = 0;  //清空标志位
 			break;
     }
@@ -124,8 +134,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 				capture_Cnt[1]++;
 				break;
 			case 2:
-				capture_Buf[1][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
-				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+				capture_Buf[1][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_2);//获取当前的捕获值.
+				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_2); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
 				capture_Cnt[1]++; 
 				break;
 		}
@@ -133,13 +143,13 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
         //Channel 3 caputure interrupt
         switch(capture_Cnt[2]){
 			case 1:
-				capture_Buf[2][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
-				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
+				capture_Buf[2][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_3);//获取当前的捕获值.
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
 				capture_Cnt[2]++;
 				break;
 			case 2:
-				capture_Buf[2][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
-				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+				capture_Buf[2][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_3);//获取当前的捕获值.
+				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_3); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
 				capture_Cnt[2]++; 
 				break;   
 		}
@@ -147,13 +157,13 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
         //Channel 4 caputure interrupt
         switch(capture_Cnt[3]){
 			case 1:
-				capture_Buf[3][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
-				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
+				capture_Buf[3][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_4);//获取当前的捕获值.
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
 				capture_Cnt[3]++;
 				break;
 			case 2:
-				capture_Buf[3][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
-				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+				capture_Buf[3][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_4);//获取当前的捕获值.
+				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_4); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
 				capture_Cnt[3]++;
 				break;    
 		}
