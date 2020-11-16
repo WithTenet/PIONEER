@@ -32,9 +32,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-extern unsigned int capture_Buf[4][2]; //存放计数值
-extern unsigned int capture_Cnt[4];//状态标志位
-extern unsigned int high_time[4]; //高电平时间
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/

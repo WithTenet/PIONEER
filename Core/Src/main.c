@@ -51,7 +51,7 @@ UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-int capture_Buf[4][2]={{0,0},{0,0},{0,0},{0,0}}; //存放计数值
+int  capture_Buf[4][2]={{0,0},{0,0},{0,0},{0,0}}; //存放计数值
 int  capture_Cnt[4]={0,0,0,0};//状态标志位
 int  high_time[4]={0,0,0,0}; //高电平时间
 char buf[4][20];
@@ -139,8 +139,8 @@ int main(void)
 	  //bsp_OLED_ShowStr(0, 0,buf[0], 1);//显示字符串
 
     bsp_OLED_ShowNum(0,0,high_time[0],4,12);
-   // bsp_OLED_ShowNum(0,2,high_time[1],4,12);
-    //bsp_OLED_ShowNum(0,4,high_time[2],4,12);
+    bsp_OLED_ShowNum(0,2,high_time[1],4,12);
+    bsp_OLED_ShowNum(0,4,high_time[2],4,12);
     bsp_OLED_ShowNum(0,6,high_time[3],4,12);
 
 

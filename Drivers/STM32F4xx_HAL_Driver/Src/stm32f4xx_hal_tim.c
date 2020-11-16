@@ -198,6 +198,10 @@ all interrupt callbacks are set to the corresponding weak functions:
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+extern int  capture_Buf[4][2]; //存放计数值
+extern int  capture_Cnt[4];//状态标志位
+extern int  high_time[4]; //高电平时间
+extern TIM_HandleTypeDef htim1;
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -3181,7 +3185,22 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
           htim->IC_CaptureCallback(htim);
 #else
-          HAL_TIM_IC_CaptureCallback(htim);
+          //HAL_TIM_IC_CaptureCallback(htim);
+    switch(capture_Cnt[0]){
+			case 0:
+				capture_Buf[0][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
+				capture_Cnt[0]++;
+				break;
+			case 1:
+				capture_Buf[0][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_1);//获取当前的捕获值.
+				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_1); //停止捕获 ;
+				high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_1,TIM_ICPOLARITY_RISING); 
+				HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
+				capture_Cnt[0] = 0;
+				break; 
+		}
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
         }
         /* Output compare event */
@@ -3212,7 +3231,22 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
         htim->IC_CaptureCallback(htim);
 #else
-        HAL_TIM_IC_CaptureCallback(htim);
+     //   HAL_TIM_IC_CaptureCallback(htim);
+      switch(capture_Cnt[1]){
+			case 0:
+		 		capture_Buf[1][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_2);//获取当前的捕获值.
+		 		__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
+		 		capture_Cnt[1]++;
+		 		break;
+		 	case 1:
+		 		capture_Buf[1][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_2);//获取当前的捕获值.
+		 		HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_2); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+		 		high_time[1] = capture_Buf[1][1]- capture_Buf[1][0];
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_2,TIM_ICPOLARITY_RISING); 
+				HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
+				capture_Cnt[1] = 0;
+		 		break;
+		 }
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
       }
       /* Output compare event */
@@ -3242,7 +3276,22 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
         htim->IC_CaptureCallback(htim);
 #else
-        HAL_TIM_IC_CaptureCallback(htim);
+       // HAL_TIM_IC_CaptureCallback(htim);
+      switch(capture_Cnt[2]){
+		 	case 0:
+		 		capture_Buf[2][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_3);//获取当前的捕获值.
+		 		__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
+		 		capture_Cnt[2]++;
+		 		break;
+		 	case 1:
+				capture_Buf[2][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_3);//获取当前的捕获值.
+		 		HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_3); //停止捕获   或者: __HAL_TIM_DISABLE(&htim5);
+				high_time[2] = capture_Buf[2][1]- capture_Buf[2][0];
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_3,TIM_ICPOLARITY_RISING); 
+				HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
+				capture_Cnt[2] = 0;
+		 		break;   
+		}
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
       }
       /* Output compare event */
@@ -3272,7 +3321,23 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
         htim->IC_CaptureCallback(htim);
 #else
-        HAL_TIM_IC_CaptureCallback(htim);
+      //  HAL_TIM_IC_CaptureCallback(htim);
+         switch(capture_Cnt[3]){
+		 	case 0:
+		 		capture_Buf[3][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_4);//获取当前的捕获值.
+		 		__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
+		 		capture_Cnt[3]++;
+		 		break;
+		 	case 1:
+		 		capture_Buf[3][1] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_4);//获取当前的捕获值.
+				HAL_TIM_IC_Stop_IT(&htim1,TIM_CHANNEL_4);
+				high_time[3] = capture_Buf[3][1]- capture_Buf[3][0];
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_RISING); 
+				HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
+				capture_Cnt[3] = 0;
+		 		break;     
+		 }
+		 
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
       }
       /* Output compare event */

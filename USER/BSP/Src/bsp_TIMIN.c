@@ -110,11 +110,10 @@ void bsp_TIMIN_C(void)
  * 
  * @param htim 
  */
-
+/*
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-	if(TIM1 == htim->Instance)
-	{   
+	  
     //Channel 1 caputure interrupt
 		switch(capture_Cnt[0]){
 			case 0:
@@ -132,7 +131,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 				break; 
 		}
 	
-/*
+
     // Channel 2 caputure interrupt
     	switch(capture_Cnt[1]){
 			case 0:
@@ -148,9 +147,9 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 				HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
 				capture_Cnt[1] = 0;
 		 		break;
-		 }*/
+		 }
 
-/*
+
         // Channel 3 caputure interrupt
          switch(capture_Cnt[2]){
 		 	case 0:
@@ -167,10 +166,10 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 				capture_Cnt[2] = 0;
 		 		break;   
 		}
-		*/
+		
 
        // Channel 4 caputure interrupt
-        	switch(capture_Cnt[3]){
+        switch(capture_Cnt[3]){
 		 	case 0:
 		 		capture_Buf[3][0] = HAL_TIM_ReadCapturedValue(&htim1,TIM_CHANNEL_4);//获取当前的捕获值.
 		 		__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_FALLING);  //设置为下降沿捕获
@@ -183,13 +182,8 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim1,TIM_CHANNEL_4,TIM_ICPOLARITY_RISING); 
 				HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
 				capture_Cnt[3] = 0;
-		 		break;    
-				 
-		 }
-		 
-
-	}
-	
-	
+		 		break;     
+		 }	
 }
+*/
 
