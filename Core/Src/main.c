@@ -51,10 +51,11 @@ UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-unsigned int capture_Buf[4][2]={{0,0},{0,0},{0,0},{0,0}}; //存放计数值
-unsigned int capture_Cnt[4]={0,0,0,0};//状态标志位
-unsigned int high_time[4]={0,0,0,0}; //高电平时间
+int capture_Buf[4][2]={{0,0},{0,0},{0,0},{0,0}}; //存放计数值
+int  capture_Cnt[4]={0,0,0,0};//状态标志位
+int  high_time[4]={0,0,0,0}; //高电平时间
 char buf[4][20];
+char temp[20];
 
 /* USER CODE END PV */
 
@@ -112,12 +113,11 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_TIM2_Init();
-  
   /* USER CODE BEGIN 2 */
   bsp_OLED_Init();
   bsp_OLED_ON();
   bsp_OLED_CLR();
-
+  int i=3000;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -128,8 +128,12 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     bsp_TIMIN_C();
-    sprintf(buf[0],"ch1 high time:%d",high_time[0]);
+    printf("ch1 :%d",high_time[0]);
+    HAL_Delay(100);
+    sprintf(buf[0],"ch1 high time:%5d",high_time[0]);
 	  bsp_OLED_ShowStr(0, 0,buf[0], 1);//显示字符串
+    sprintf(buf[1],"ch1 high time:%5d",i++);
+    bsp_OLED_ShowStr(0, 2,buf[1], 1);//显示字符串
    /* sprintf(buf[1],"ch2 high time:%d",high_time[1]);
 	  bsp_OLED_ShowStr(0, 2,buf[1], 1);//显示字符串
     sprintf(buf[2],"ch3 high time:%d",high_time[2]);
@@ -141,41 +145,6 @@ int main(void)
   /* USER CODE END 3 */
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * @brief 外设数据更改区
- * 
- */
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -306,12 +275,12 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 167;
+  htim1.Init.Prescaler = 1639;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period =0xffff;
+  htim1.Init.Period = 64000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_IC_Init(&htim1) != HAL_OK)
   {
     Error_Handler();
@@ -325,7 +294,7 @@ static void MX_TIM1_Init(void)
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 8;
+  sConfigIC.ICFilter = 0;
   if (HAL_TIM_IC_ConfigChannel(&htim1, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();

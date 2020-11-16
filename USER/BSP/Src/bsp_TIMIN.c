@@ -3,9 +3,9 @@
  * @brief 数据存储结构
  * 
  */
-extern unsigned int capture_Buf[4][2]; //存放计数值
-extern unsigned int capture_Cnt[4] ;//状态标志位
-extern unsigned int high_time[4]; //高电平时间
+extern int  capture_Buf[4][2]; //存放计数值
+extern int  capture_Cnt[4] ;//状态标志位
+extern int  high_time[4]; //高电平时间
 extern  TIM_HandleTypeDef htim1;
 
 
@@ -26,11 +26,12 @@ void bsp_TIMIN_C(void)
             HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);	//启动输入捕获       或者: __HAL_TIM_ENABLE(&htim5);
 		    break;
 	    case 3:
-		    if(capture_Buf[0][1]>capture_Buf[0][0])
-		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];    //高电平时间
-			else
-				high_time[0] = capture_Buf[0][0]- capture_Buf[0][1];
-				capture_Buf[0][0]=capture_Buf[0][1]=0;
+		    if(capture_Buf[0][1]>capture_Buf[0][0]){
+		   		high_time[0] = capture_Buf[0][1]- capture_Buf[0][0];  
+			}//高电平时间
+			else{
+				high_time[0] =capture_Buf[0][1]-capture_Buf[0][1];
+			}
 		    capture_Cnt[0] = 0;  //清空标志位
 			break;
     }

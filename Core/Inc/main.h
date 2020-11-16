@@ -29,10 +29,11 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "bsp_OLED.h"
-
 
 /* Private includes ----------------------------------------------------------*/
+#include "bsp_OLED.h"
+#include "bsp_TIMIN.h"
+#include "bsp_USART.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
