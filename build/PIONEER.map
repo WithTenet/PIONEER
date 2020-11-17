@@ -1035,20 +1035,15 @@ Discarded input sections
  .text          0x0000000000000000        0x0 build/bsp_TIMIN.o
  .data          0x0000000000000000        0x0 build/bsp_TIMIN.o
  .bss           0x0000000000000000        0x0 build/bsp_TIMIN.o
- .text.HAL_TIM_IC_CaptureCallback
-                0x0000000000000000      0x170 build/bsp_TIMIN.o
- .debug_info    0x0000000000000000     0x1294 build/bsp_TIMIN.o
- .debug_abbrev  0x0000000000000000      0x244 build/bsp_TIMIN.o
- .debug_loc     0x0000000000000000       0x7f build/bsp_TIMIN.o
+ .debug_info    0x0000000000000000     0x10fd build/bsp_TIMIN.o
+ .debug_abbrev  0x0000000000000000      0x1d6 build/bsp_TIMIN.o
  .debug_aranges
-                0x0000000000000000       0x20 build/bsp_TIMIN.o
- .debug_ranges  0x0000000000000000       0x10 build/bsp_TIMIN.o
- .debug_line    0x0000000000000000      0x326 build/bsp_TIMIN.o
- .debug_str     0x0000000000000000      0xae7 build/bsp_TIMIN.o
+                0x0000000000000000       0x18 build/bsp_TIMIN.o
+ .debug_line    0x0000000000000000      0x207 build/bsp_TIMIN.o
+ .debug_str     0x0000000000000000      0xa86 build/bsp_TIMIN.o
  .comment       0x0000000000000000       0x4d build/bsp_TIMIN.o
- .debug_frame   0x0000000000000000       0x2c build/bsp_TIMIN.o
  .ARM.attributes
-                0x0000000000000000       0x34 build/bsp_TIMIN.o
+                0x0000000000000000       0x39 build/bsp_TIMIN.o
  .text          0x0000000000000000        0x0 build/bsp_USART.o
  .data          0x0000000000000000        0x0 build/bsp_USART.o
  .bss           0x0000000000000000        0x0 build/bsp_USART.o
@@ -1853,7 +1848,7 @@ LOAD /Applications/ARM/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/li
  .debug_ranges  0x0000000000000d30       0x80 build/bsp_OLED.o
  .debug_ranges  0x0000000000000db0       0x20 build/startup_stm32f407xx.o
 
-.debug_line     0x0000000000000000     0xf025
+.debug_line     0x0000000000000000     0xf023
  .debug_line    0x0000000000000000      0x78c build/main.o
  .debug_line    0x000000000000078c      0x2c8 build/stm32f4xx_it.o
  .debug_line    0x0000000000000a54      0x5ca build/stm32f4xx_hal_msp.o
@@ -1862,12 +1857,12 @@ LOAD /Applications/ARM/bin/../lib/gcc/arm-none-eabi/9.3.1/thumb/v7e-m+fp/hard/li
  .debug_line    0x0000000000006c13      0x6e7 build/stm32f4xx_hal_gpio.o
  .debug_line    0x00000000000072fa      0x760 build/stm32f4xx_hal_cortex.o
  .debug_line    0x0000000000007a5a      0x523 build/stm32f4xx_hal.o
- .debug_line    0x0000000000007f7d     0x37d1 build/stm32f4xx_hal_tim.o
- .debug_line    0x000000000000b74e     0x11b1 build/stm32f4xx_hal_tim_ex.o
- .debug_line    0x000000000000c8ff     0x1c27 build/stm32f4xx_hal_uart.o
- .debug_line    0x000000000000e526      0x24c build/system_stm32f4xx.o
- .debug_line    0x000000000000e772      0x840 build/bsp_OLED.o
- .debug_line    0x000000000000efb2       0x73 build/startup_stm32f407xx.o
+ .debug_line    0x0000000000007f7d     0x37cf build/stm32f4xx_hal_tim.o
+ .debug_line    0x000000000000b74c     0x11b1 build/stm32f4xx_hal_tim_ex.o
+ .debug_line    0x000000000000c8fd     0x1c27 build/stm32f4xx_hal_uart.o
+ .debug_line    0x000000000000e524      0x24c build/system_stm32f4xx.o
+ .debug_line    0x000000000000e770      0x840 build/bsp_OLED.o
+ .debug_line    0x000000000000efb0       0x73 build/startup_stm32f407xx.o
 
 .debug_str      0x0000000000000000     0x41ed
  .debug_str     0x0000000000000000     0x1045 build/main.o
@@ -2297,8 +2292,7 @@ HAL_TIM_Encoder_Stop_DMA                          build/stm32f4xx_hal_tim.o
 HAL_TIM_Encoder_Stop_IT                           build/stm32f4xx_hal_tim.o
 HAL_TIM_ErrorCallback                             build/stm32f4xx_hal_tim.o
 HAL_TIM_GenerateEvent                             build/stm32f4xx_hal_tim.o
-HAL_TIM_IC_CaptureCallback                        build/bsp_TIMIN.o
-                                                  build/stm32f4xx_hal_tim.o
+HAL_TIM_IC_CaptureCallback                        build/stm32f4xx_hal_tim.o
 HAL_TIM_IC_CaptureHalfCpltCallback                build/stm32f4xx_hal_tim.o
 HAL_TIM_IC_ConfigChannel                          build/stm32f4xx_hal_tim.o
                                                   build/main.o
@@ -2311,12 +2305,10 @@ HAL_TIM_IC_MspInit                                build/stm32f4xx_hal_msp.o
 HAL_TIM_IC_Start                                  build/stm32f4xx_hal_tim.o
 HAL_TIM_IC_Start_DMA                              build/stm32f4xx_hal_tim.o
 HAL_TIM_IC_Start_IT                               build/stm32f4xx_hal_tim.o
-                                                  build/bsp_TIMIN.o
                                                   build/main.o
 HAL_TIM_IC_Stop                                   build/stm32f4xx_hal_tim.o
 HAL_TIM_IC_Stop_DMA                               build/stm32f4xx_hal_tim.o
 HAL_TIM_IC_Stop_IT                                build/stm32f4xx_hal_tim.o
-                                                  build/bsp_TIMIN.o
 HAL_TIM_IRQHandler                                build/stm32f4xx_hal_tim.o
                                                   build/stm32f4xx_it.o
 HAL_TIM_MspPostInit                               build/stm32f4xx_hal_msp.o
@@ -2363,7 +2355,6 @@ HAL_TIM_PWM_Stop_IT                               build/stm32f4xx_hal_tim.o
 HAL_TIM_PeriodElapsedCallback                     build/stm32f4xx_hal_tim.o
 HAL_TIM_PeriodElapsedHalfCpltCallback             build/stm32f4xx_hal_tim.o
 HAL_TIM_ReadCapturedValue                         build/stm32f4xx_hal_tim.o
-                                                  build/bsp_TIMIN.o
 HAL_TIM_SlaveConfigSynchro                        build/stm32f4xx_hal_tim.o
 HAL_TIM_SlaveConfigSynchro_IT                     build/stm32f4xx_hal_tim.o
 HAL_TIM_TriggerCallback                           build/stm32f4xx_hal_tim.o
@@ -2549,10 +2540,8 @@ bsp_OLED_ShowStr                                  build/bsp_OLED.o
 bsp_OLED_pow                                      build/bsp_OLED.o
 buf                                               build/main.o
 capture_Buf                                       build/main.o
-                                                  build/bsp_TIMIN.o
                                                   build/stm32f4xx_hal_tim.o
 capture_Cnt                                       build/main.o
-                                                  build/bsp_TIMIN.o
                                                   build/stm32f4xx_hal_tim.o
 exit                                              /Applications/ARM/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc_nano.a(lib_a-exit.o)
                                                   /Applications/ARM/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/crt0.o
@@ -2563,10 +2552,8 @@ hi2c1                                             build/main.o
 hi2c2                                             build/main.o
                                                   build/bsp_OLED.o
 high_time                                         build/main.o
-                                                  build/bsp_TIMIN.o
                                                   build/stm32f4xx_hal_tim.o
 htim1                                             build/main.o
-                                                  build/bsp_TIMIN.o
                                                   build/stm32f4xx_hal_tim.o
                                                   build/stm32f4xx_it.o
 htim2                                             build/main.o
