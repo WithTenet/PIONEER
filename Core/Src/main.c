@@ -122,8 +122,16 @@ int main(void)
   HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_2);
   HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_3);
   HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_4);
-   
-  
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);  //使能PWM输出
+	HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);  //使能PWM输出
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_3);  //使能PWM输出
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_4);  //使能PWM输出
+  __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, 2000); 
+  __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_2, 2000); 
+  __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_3, 2000); 
+  __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_4, 2000); 
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -143,6 +151,10 @@ int main(void)
     bsp_OLED_ShowNum(0,2,high_time[1],4,12);
     bsp_OLED_ShowNum(0,4,high_time[2],4,12);
     bsp_OLED_ShowNum(0,6,high_time[3],4,12);
+    __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, high_time[0]); 
+    __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_2, high_time[1]); 
+    __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_3, high_time[2]); 
+    __HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_4, high_time[3]); 
 
 
     // sprintf(buf[1],"ch2 high time:%d",high_time[1]);
@@ -396,7 +408,7 @@ static void MX_TIM8_Init(void)
 
   /* USER CODE END TIM8_Init 1 */
   htim8.Instance = TIM8;
-  htim8.Init.Prescaler = 167;
+  htim8.Init.Prescaler =83;
   htim8.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim8.Init.Period = 65535;
   htim8.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
